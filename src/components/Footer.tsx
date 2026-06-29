@@ -143,15 +143,15 @@ export default function Footer() {
                         © 2025 Ramayan Tours and Travels. All rights reserved. Made with ❤️ in India.
                     </p>
                     <div className="flex gap-6">
-                        {['Privacy Policy', 'Terms of Service', 'Refund Policy'].map((item) => (
-                            <Link
-                                key={item}
-                                href="#"
-                                className="text-gray-500 hover:text-orange-400 text-sm transition-colors"
-                            >
-                                {item}
-                            </Link>
-                        ))}
+                        <Link href="/privacy" className="text-gray-500 hover:text-orange-400 text-sm transition-colors">
+                            Privacy Policy
+                        </Link>
+                        <Link href="/terms" className="text-gray-400 hover:text-orange-400 text-sm transition-colors">
+                            Terms of Service
+                        </Link>
+                        <Link href="/contact" className="text-gray-500 hover:text-orange-400 text-sm transition-colors">
+                            Refund Policy
+                        </Link>
                     </div>
                 </div>
             </div>

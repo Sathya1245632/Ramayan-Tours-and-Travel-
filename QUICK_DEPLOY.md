@@ -63,6 +63,7 @@ In Vercel project settings → Environment Variables:
 DATABASE_URL=postgresql://postgres:[YOUR-PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres
 NEXTAUTH_SECRET=your-super-secret-key-here
 NEXTAUTH_URL=https://your-app-name.vercel.app
+GEMINI_API_KEY=your-gemini-api-key
 ```
 
 **Generate NEXTAUTH_SECRET**: 

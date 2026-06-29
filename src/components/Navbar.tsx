@@ -84,18 +84,6 @@ export default function Navbar() {
                             <Phone className="w-4 h-4" />
                             <span>+91 7639 661 626</span>
                         </a>
-                        <Link
-                            href="/login"
-                            className="px-4 py-2 text-sm text-white border border-white/20 rounded-full hover:border-orange-500/50 hover:bg-orange-500/10 transition-all"
-                        >
-                            Login
-                        </Link>
-                        <Link
-                            href="/booking"
-                            className="px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full hover:shadow-lg hover:shadow-orange-500/40 hover:-translate-y-0.5 transition-all"
-                        >
-                            Book Now
-                        </Link>
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -127,20 +115,6 @@ export default function Navbar() {
                             </Link>
                         ))}
                         <div className="pt-6 flex flex-col gap-4">
-                            <Link
-                                href="/login"
-                                onClick={() => setIsOpen(false)}
-                                className="block text-center px-5 py-4 text-base font-semibold text-white border border-white/10 rounded-xl hover:border-orange-500/50 hover:bg-orange-500/5 transition-all"
-                            >
-                                Login / Signup
-                            </Link>
-                            <Link
-                                href="/booking"
-                                onClick={() => setIsOpen(false)}
-                                className="block text-center px-5 py-4 text-base font-bold text-white bg-gradient-to-r from-orange-500 to-yellow-500 rounded-xl shadow-lg shadow-orange-500/30"
-                            >
-                                Book Now
-                            </Link>
                         </div>
                     </div>
                 </div>
