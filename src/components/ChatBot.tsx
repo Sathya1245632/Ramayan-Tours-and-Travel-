@@ -89,11 +89,11 @@ export default function ChatBot() {
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 rounded-full bg-white/20 overflow-hidden flex items-center justify-center">
                                 <Image
-                                    src="/images/ramayan-logo.png"
+                                    src="/images/logo-sunrise-diya.svg"
                                     alt="Ramayan Assistant"
                                     width={40}
                                     height={40}
-                                    className="object-cover scale-110"
+                                    className="object-contain scale-110"
                                 />
                             </div>
                             <div>
@@ -125,11 +125,11 @@ export default function ChatBot() {
                                     }`}>
                                     {msg.sender === 'bot' ? (
                                         <Image
-                                            src="/images/logo-gold.jpg"
+                                            src="/images/logo-sunrise-diya.svg"
                                             alt="Bot"
                                             width={28}
                                             height={28}
-                                            className="object-cover scale-110"
+                                            className="object-contain scale-110"
                                         />
                                     ) : <User className="w-3.5 h-3.5 text-white" />}
                                 </div>
@@ -151,11 +151,11 @@ export default function ChatBot() {
                             <div className="flex gap-2.5">
                                 <div className="w-7 h-7 rounded-full overflow-hidden bg-gradient-to-br from-orange-500 to-yellow-500 flex items-center justify-center">
                                     <Image
-                                        src="/images/logo-gold.jpg"
+                                        src="/images/logo-sunrise-diya.svg"
                                         alt="Bot"
                                         width={28}
                                         height={28}
-                                        className="object-cover scale-110"
+                                        className="object-contain scale-110"
                                     />
                                 </div>
                                 <div className="bg-gray-800 px-4 py-3 rounded-2xl rounded-tl-sm border border-white/5">

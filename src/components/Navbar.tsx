@@ -42,11 +42,12 @@ export default function Navbar() {
                     <Link href="/" className="flex items-center gap-3 group">
                         <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center shadow-lg border-2 border-orange-500/20 group-hover:border-orange-500/50 transition-all duration-300">
                             <Image
-                                src="/images/logo-gold.jpg"
+                                src="/images/logo-sunrise-diya.svg"
                                 alt="Ramayan Tours & Travels"
                                 width={48}
                                 height={48}
-                                className="object-cover scale-110"
+                                priority
+                                className="object-contain scale-110"
                             />
                         </div>
                             <div className="flex flex-col">

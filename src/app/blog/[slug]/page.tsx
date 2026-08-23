@@ -1,19 +1,50 @@
 'use client';
 
-import { use } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Clock, User, ArrowLeft, Share2, MessageCircle, Calendar } from 'lucide-react';
+import { useParams, notFound } from 'next/navigation';
+import { Clock, User, ArrowLeft, Share2, MessageCircle, Calendar, Phone, CheckCircle } from 'lucide-react';
 import { blogPosts } from '@/lib/data';
-import { notFound } from 'next/navigation';
+import toast from 'react-hot-toast';
 
-export default function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
-    const { slug } = use(params);
-    const post = blogPosts.find((p) => p.slug === slug);
+export default function BlogPostPage() {
+    const params = useParams();
+    const rawSlug = (params?.slug as string) || '';
+    const slug = decodeURIComponent(rawSlug).replace(/\s+/g, '-');
+    const post = blogPosts.find((p) => p.slug === slug || p.slug === rawSlug);
 
     if (!post) {
-        notFound();
+        return (
+            <div className="min-h-screen bg-gray-950 pt-32 pb-20 px-4 text-center">
+                <div className="max-w-md mx-auto bg-gray-900 border border-white/10 rounded-2xl p-8 shadow-xl">
+                    <h2 className="text-2xl font-bold text-white mb-3">Article Not Found</h2>
+                    <p className="text-gray-400 text-sm mb-6">The sacred story or guide you are looking for does not exist or has moved.</p>
+                    <Link
+                        href="/blog"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-xl font-semibold text-sm"
+                    >
+                        <ArrowLeft className="w-4 h-4" /> Back to Blog
+                    </Link>
+                </div>
+            </div>
+        );
     }
+
+    const handleShare = () => {
+        if (typeof window !== 'undefined') {
+            if (navigator.share) {
+                navigator.share({
+                    title: post.title,
+                    text: post.excerpt,
+                    url: window.location.href,
+                }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                toast.success('📋 Article link copied to clipboard!');
+            }
+        }
+    };
 
     return (
         <article className="min-h-screen bg-gray-950 pt-28 pb-20">
@@ -30,7 +61,7 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
 
             {/* Featured Image Header */}
             <div className="max-w-5xl mx-auto px-4 mb-12">
-                <div className="relative h-[400px] md:h-[500px] rounded-3xl overflow-hidden shadow-2xl border border-white/5">
+                <div className="relative h-[350px] md:h-[480px] rounded-3xl overflow-hidden shadow-2xl border border-white/5">
                     <Image
                         src={post.image}
                         alt={post.title}
@@ -38,13 +69,13 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
                         className="object-cover"
                         priority
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/20 to-transparent" />
-                    <div className="absolute inset-0 p-8 flex flex-col justify-end">
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent" />
+                    <div className="absolute inset-0 p-6 md:p-10 flex flex-col justify-end">
                         <div className="badge-saffron inline-block mb-4 self-start">{post.category}</div>
-                        <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-white font-poppins mb-6 leading-tight max-w-4xl">
+                        <h1 className="text-2xl md:text-4xl lg:text-5xl font-black text-white font-poppins mb-4 md:mb-6 leading-tight max-w-4xl">
                             {post.title}
                         </h1>
-                        <div className="flex flex-wrap items-center gap-6 text-gray-300 text-sm">
+                        <div className="flex flex-wrap items-center gap-4 md:gap-6 text-gray-300 text-xs md:text-sm">
                             <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
                                 <User className="w-4 h-4 text-orange-400" />
                                 <span className="font-semibold">{post.author}</span>
@@ -63,81 +94,101 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
             </div>
 
             {/* Post Content */}
-            <div className="max-w-4xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-4 gap-12">
+            <div className="max-w-5xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-4 gap-12">
                 {/* Main Content */}
                 <div className="lg:col-span-3">
                     <div className="prose prose-invert prose-orange max-w-none">
-                        <p className="text-xl text-gray-300 leading-relaxed mb-8 font-medium">
+                        <p className="text-lg md:text-xl text-gray-200 leading-relaxed mb-8 font-medium bg-orange-500/5 p-6 rounded-2xl border border-orange-500/20">
                             {post.excerpt}
                         </p>
                         
-                        {/* Dummy detailed content - in a real app this would come from the post object */}
-                        <div className="text-gray-300 space-y-6 leading-relaxed text-lg">
+                        <div className="text-gray-300 space-y-6 leading-relaxed text-base md:text-lg">
                             <p>
-                                India is a land where spirituality is woven into the very fabric of daily life. For centuries, pilgrims have traversed the vast landscapes of this subcontinent in search of divine peace, redemption, and enlightenment.
+                                South India is blessed with some of the most sacred pilgrimage shrines and majestic heritage corridors in the world. For generations, millions of devotees have traveled across Rameshwaram, Madurai, Kanyakumari, and beyond in search of divine blessings and peaceful memories.
                             </p>
                             
                             <h2 className="text-2xl font-bold text-white font-poppins mt-10 mb-4 border-l-4 border-orange-500 pl-4 bg-orange-500/5 py-2">
-                                The Essence of Sacred Travel
+                                🌟 Key Highlights & Spiritual Significance
                             </h2>
                             <p>
-                                A pilgrimage is not just a physical journey; it's a transformation of the soul. From the snowy heights of the Himalayas to the tropical shores of Rameshwaram, each sacred site carries a unique vibrational frequency. At Ramayan Tours and Travels, we understand that every step you take towards the divine must be handled with care and devotion.
+                                Every sacred shrine on this trail has centuries of history and distinct spiritual rituals. From performing the holy bath in the 22 sacred theerthams of Ramanathaswamy Temple to witnessing the morning aarti at Meenakshi Amman Temple, proper timing and planning makes all the difference.
                             </p>
 
-                            <Image 
-                                src="https://images.unsplash.com/photo-1544735745-b89b18555f35?w=1200&q=80" 
-                                alt="Temple Interior"
-                                width={800}
-                                height={450}
-                                className="rounded-2xl border border-white/5 shadow-lg my-10"
-                            />
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-8">
+                                <div className="p-5 bg-gray-900 rounded-2xl border border-white/5">
+                                    <div className="text-orange-400 font-bold text-base mb-2 flex items-center gap-2">
+                                        <CheckCircle className="w-4 h-4" /> Best Season & Timings
+                                    </div>
+                                    <p className="text-gray-400 text-sm">Early morning (5:00 AM to 9:00 AM) and evening aartis offer the most peaceful darshan.</p>
+                                </div>
+                                <div className="p-5 bg-gray-900 rounded-2xl border border-white/5">
+                                    <div className="text-orange-400 font-bold text-base mb-2 flex items-center gap-2">
+                                        <CheckCircle className="w-4 h-4" /> Hassle-Free Transport
+                                    </div>
+                                    <p className="text-gray-400 text-sm">Comfortable AC sedans and tempo travelers with experienced local drivers who know temple schedules.</p>
+                                </div>
+                            </div>
 
                             <h2 className="text-2xl font-bold text-white font-poppins mt-10 mb-4 border-l-4 border-orange-500 pl-4 bg-orange-500/5 py-2">
-                                Why Professional Planning Matters
+                                🚗 Planning Your Journey with Ramayan Tours
                             </h2>
                             <p>
-                                Traveling to ancient temple cities like Madurai or Tirupati can be overwhelming due to crowds, complex rituals, and local logistics. Using a specialized travel agency ensures that you don't miss the subtle details that make a pilgrimage truly sacred—the right aarti time, the correct sequence of theerthams, or the best place to find satvik food.
+                                At Ramayan Tours and Travels, our dedicated team assists you with customized itinerary planning, clean AC cabs, hotel accommodations, and 24/7 dedicated support so you can focus entirely on your devotion and family comfort.
                             </p>
                         </div>
                     </div>
 
                     {/* Footer Actions */}
-                    <div className="mt-16 pt-8 border-t border-white/5 flex items-center justify-between">
+                    <div className="mt-12 pt-8 border-t border-white/5 flex items-center justify-between">
                         <div className="flex gap-4">
-                            <button className="flex items-center gap-2 px-4 py-2 bg-gray-900 rounded-full text-sm hover:bg-orange-500/10 transition-colors">
-                                <Share2 className="w-4 h-4 text-orange-400" /> Share
+                            <button
+                                onClick={handleShare}
+                                className="flex items-center gap-2 px-5 py-2.5 bg-gray-900 border border-white/10 rounded-full text-sm hover:bg-orange-500/10 hover:border-orange-500/30 transition-all text-gray-300"
+                            >
+                                <Share2 className="w-4 h-4 text-orange-400" /> Share Story
                             </button>
-                            <button className="flex items-center gap-2 px-4 py-2 bg-gray-900 rounded-full text-sm hover:bg-orange-500/10 transition-colors">
-                                <MessageCircle className="w-4 h-4 text-orange-400" /> Comments
-                            </button>
+                            <a
+                                href="https://wa.me/917639661626?text=Hi%20Ramayan%20Tours,%20I%20have%20an%20inquiry%20regarding%20the%20article:%20"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-2 px-5 py-2.5 bg-green-500/10 border border-green-500/30 text-green-400 rounded-full text-sm hover:bg-green-500/20 transition-all"
+                            >
+                                <MessageCircle className="w-4 h-4" /> Ask on WhatsApp
+                            </a>
                         </div>
                     </div>
                 </div>
 
                 {/* Sidebar */}
                 <div className="lg:col-span-1">
-                    <div className="sticky top-28 space-y-8">
+                    <div className="sticky top-28 space-y-6">
                         {/* CTA Box */}
                         <div className="bg-gradient-to-br from-orange-500 to-yellow-600 p-6 rounded-2xl shadow-xl shadow-orange-500/20 text-white">
-                            <h3 className="font-black text-xl mb-3 font-poppins">Ready to Visit?</h3>
-                            <p className="text-sm text-white/90 mb-6 leading-relaxed">
-                                Let us plan your perfect spiritual journey with AI precision.
+                            <h3 className="font-black text-xl mb-2 font-poppins">Ready to Visit?</h3>
+                            <p className="text-xs text-white/90 mb-5 leading-relaxed">
+                                Book your comfortable cab or complete pilgrimage tour in Rameshwaram & South India.
                             </p>
                             <Link 
-                                href="/booking"
-                                className="block w-full text-center py-3 bg-white text-orange-600 font-bold rounded-xl hover:bg-gray-100 transition-colors"
+                                href="/packages"
+                                className="block w-full text-center py-3 bg-white text-orange-600 font-bold text-sm rounded-xl hover:bg-gray-100 transition-colors shadow-md mb-2"
                             >
-                                Book Now
+                                View Packages
                             </Link>
+                            <a 
+                                href="tel:+917639661626"
+                                className="block w-full text-center py-2.5 border border-white/40 text-white font-medium text-xs rounded-xl hover:bg-white/10 transition-colors"
+                            >
+                                Call +91 7639 661 626
+                            </a>
                         </div>
 
                         {/* Recent Posts Mini */}
                         <div className="bg-gray-900/50 p-6 rounded-2xl border border-white/5">
-                            <h3 className="text-white font-bold mb-4 font-poppins text-sm uppercase tracking-widest">Recent Stories</h3>
+                            <h3 className="text-white font-bold mb-4 font-poppins text-xs uppercase tracking-widest text-orange-400">Recent Stories</h3>
                             <div className="space-y-4">
-                                {blogPosts.filter(p => p.slug !== slug).slice(0, 3).map(p => (
+                                {blogPosts.filter(p => p.slug !== slug).slice(0, 4).map(p => (
                                     <Link key={p.id} href={`/blog/${p.slug}`} className="group block">
-                                        <p className="text-gray-400 text-xs mb-1 line-clamp-1 group-hover:text-orange-400 transition-colors">{p.title}</p>
+                                        <p className="text-gray-300 text-xs mb-1 line-clamp-1 group-hover:text-orange-400 transition-colors">{p.title}</p>
                                         <div className="flex items-center gap-2 text-[10px] text-gray-500">
                                             <span>{p.date}</span>
                                             <span>•</span>
@@ -153,3 +204,4 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
         </article>
     );
 }
+

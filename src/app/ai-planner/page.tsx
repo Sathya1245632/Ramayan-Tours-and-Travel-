@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Sparkles, MapPin, Clock, DollarSign, Users, Loader2, CheckCircle, Hotel, Bus, Star, ArrowRight } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Sparkles, MapPin, Clock, DollarSign, Users, Loader2, CheckCircle, Hotel, Bus, Star, ArrowRight, Search, ChevronDown, Check, X } from 'lucide-react';
 import Link from 'next/link';
+import { generateAIItinerary } from '@/app/actions/chat';
 
 interface ItineraryDay {
     day: number;
@@ -24,67 +25,185 @@ interface GeneratedItinerary {
     highlights: string[];
 }
 
-const MOCK_ITINERARIES: Record<string, GeneratedItinerary> = {
-    rameshwaram: {
-        destination: 'Rameshwaram',
-        days: 3,
-        budget: 'Budget',
-        totalCost: 8999,
-        itinerary: [
-            {
-                day: 1,
-                title: 'Arrival & Evening Darshan',
-                activities: ['Arrive at Madurai airport', 'Drive to Rameshwaram (3hr)', 'Check-in at hotel', 'Evening darshan at Ramanathaswamy Temple', 'Stroll along Agni Teertham beach'],
-                temple: 'Ramanathaswamy Temple – First darshan',
-                hotel: 'Hotel Sea View, Rameshwaram',
-                tip: 'Book temple tickets online in advance to avoid queues.',
-            },
-            {
-                day: 2,
-                title: 'The 22 Theerthams Ritual',
-                activities: ['Early morning at 5 AM – 22 Theerthams ritual bath', 'Full temple tour with guide', 'Visit Gandhamadana Parvatham', 'Lunch at local restaurant', 'Pamban Bridge photography'],
-                temple: 'Ramanathaswamy Temple – 22 Sacred Theerthams',
-                hotel: 'Hotel Sea View, Rameshwaram',
-                tip: 'Wear comfortable clothes – the ritual involves multiple ritual baths.',
-            },
-            {
-                day: 3,
-                title: 'Dhanushkodi & Return',
-                activities: ['Morning beach walk at Dhanushkodi', 'Visit the ghost town ruins', 'Kothandaramaswamy Temple', 'Lunch', 'Return journey home'],
-                temple: 'Kothandaramaswamy Temple – Dhanushkodi',
-                hotel: 'Check-out',
-                tip: 'Hire a jeep for Dhanushkodi – only 4WD vehicles are allowed.',
-            },
-        ],
-        hotels: ['Hotel Sea View (₹1,500/night)', 'Rameshwaram Residency (₹2,000/night)', 'TTDC Beach Hotel (₹1,800/night)'],
-        transport: 'AC Bus from Madurai + Local auto/jeep',
-        highlights: ['Ramanathaswamy Temple', '22 Theerthams ritual', 'Pamban Bridge', 'Dhanushkodi beach'],
+const DESTINATION_GROUPS = [
+    {
+        category: 'Sacred Temples & Pilgrimages',
+        icon: '🛕',
+        items: [
+            'Rameshwaram (Tamil Nadu)',
+            'Madurai Meenakshi Temple (Tamil Nadu)',
+            'Varanasi / Kashi Vishwanath (Uttar Pradesh)',
+            'Ayodhya Ram Janmabhoomi (Uttar Pradesh)',
+            'Tirupati Balaji Temple (Andhra Pradesh)',
+            'Puri Jagannath Temple (Odisha)',
+            'Kedarnath & Badrinath (Uttarakhand)',
+            'Dwarka & Nageshwar (Gujarat)',
+            'Somnath Jyotirlinga (Gujarat)',
+            'Haridwar & Rishikesh (Uttarakhand)',
+            'Shirdi Sai Baba Temple (Maharashtra)',
+            'Ujjain Mahakaleshwar (Madhya Pradesh)',
+            'Amritsar Golden Temple (Punjab)',
+            'Vaishno Devi (Jammu & Kashmir)',
+            'Thanjavur Brihadeeswarar Temple (Tamil Nadu)',
+            'Kumbakonam Navagraha Circuit (Tamil Nadu)',
+            'Chidambaram Nataraja Temple (Tamil Nadu)',
+            'Palani Murugan Temple (Tamil Nadu)',
+            'Tiruchendur Sea Temple (Tamil Nadu)',
+            'Tiruvannamalai Arunachaleswarar (Tamil Nadu)',
+            'Srirangam Ranganathaswamy (Tamil Nadu)',
+            'Kanchipuram Temples (Tamil Nadu)',
+            'Guruvayur Temple (Kerala)',
+            'Kollur Mookambika & Udupi (Karnataka)',
+            'Murudeshwar Shiva Temple (Karnataka)',
+            'Gokarna Mahabaleshwar (Karnataka)',
+            'Kamakhya Temple (Guwahati, Assam)',
+            'Trimbakeshwar & Shirdi (Maharashtra)',
+        ]
     },
-
-};
-
-function generateItinerary(destination: string, days: number, budget: string, style: string): GeneratedItinerary {
-    const key = destination.toLowerCase().replace(/[^a-z]/g, '');
-    const mock = MOCK_ITINERARIES[key] || MOCK_ITINERARIES['rameshwaram'];
-
-    const baseCost = budget === 'budget' ? 7000 : budget === 'premium' ? 14000 : 30000;
-    const totalCost = Math.round(baseCost * (days / 3) * (0.9 + Math.random() * 0.2));
-
-    return { ...mock, destination, days, budget: style, totalCost };
-}
-
-import { generateAIItinerary } from '@/app/actions/chat';
+    {
+        category: 'Scenic Hill Stations & Mountains',
+        icon: '⛰️',
+        items: [
+            'Manali & Solang Valley (Himachal Pradesh)',
+            'Shimla & Kufri (Himachal Pradesh)',
+            'Leh Ladakh & Pangong Lake (Ladakh)',
+            'Kashmir, Srinagar & Gulmarg (J&K)',
+            'Ooty & Nilgiris (Tamil Nadu)',
+            'Kodaikanal (Tamil Nadu)',
+            'Munnar & Tea Valleys (Kerala)',
+            'Darjeeling (West Bengal)',
+            'Gangtok & North Sikkim (Sikkim)',
+            'Nainital & Lake District (Uttarakhand)',
+            'Mussoorie Queen of Hills (Uttarakhand)',
+            'Coorg / Kodagu (Karnataka)',
+            'Wayanad (Kerala)',
+            'Shillong & Meghalaya (Meghalaya)',
+            'Cherrapunji Living Root Bridges (Meghalaya)',
+            'Dharamshala & McLeodganj (Himachal Pradesh)',
+            'Spiti Valley (Himachal Pradesh)',
+            'Yercaud Shevaroys (Tamil Nadu)',
+            'Valparai (Tamil Nadu)',
+            'Mount Abu (Rajasthan)',
+            'Mahabaleshwar (Maharashtra)',
+        ]
+    },
+    {
+        category: 'Royal Heritage & Palaces',
+        icon: '🏰',
+        items: [
+            'Jaipur Pink City & Amber Fort (Rajasthan)',
+            'Udaipur City of Lakes (Rajasthan)',
+            'Jodhpur Blue City & Mehrangarh (Rajasthan)',
+            'Jaisalmer Golden Fort & Thar Desert (Rajasthan)',
+            'Agra Taj Mahal & Fort (Uttar Pradesh)',
+            'Hampi UNESCO Heritage Ruins (Karnataka)',
+            'Mysore Palace & Chamundi (Karnataka)',
+            'Khajuraho Temples (Madhya Pradesh)',
+            'Gwalior Fort & Palaces (Madhya Pradesh)',
+            'Delhi Red Fort & Qutub Minar (Delhi)',
+            'Fatehpur Sikri (Uttar Pradesh)',
+            'Bhubaneswar & Konark Sun Temple (Odisha)',
+            'Chettinad Mansions (Karaikudi, Tamil Nadu)',
+            'Mahabalipuram Shore Temples (Tamil Nadu)',
+        ]
+    },
+    {
+        category: 'Beaches & Coastal Havens',
+        icon: '🏖️',
+        items: [
+            'Goa (North & South Beaches)',
+            'Andaman & Nicobar (Havelock / Radhanagar)',
+            'Kanyakumari Land’s End & Triveni Sangam',
+            'Alleppey Houseboat Backwaters (Kerala)',
+            'Pondicherry French Quarter & Auroville',
+            'Gokarna Om Beach (Karnataka)',
+            'Kovalam Beach (Kerala)',
+            'Varkala Cliff Beach (Kerala)',
+            'Dhanushkodi & Ram Setu (Tamil Nadu)',
+            'Lakshadweep Islands',
+            'Diu Island (Gujarat)',
+            'Puri Golden Beach (Odisha)',
+            'Velankanni Coastal Basilica (Tamil Nadu)',
+        ]
+    },
+    {
+        category: 'Wildlife, Nature & Adventure',
+        icon: '🌿',
+        items: [
+            'Jim Corbett National Park (Uttarakhand)',
+            'Ranthambore Tiger Reserve (Rajasthan)',
+            'Kaziranga National Park (Assam)',
+            'Sundarbans Mangrove Forest (West Bengal)',
+            'Periyar Wildlife Sanctuary (Thekkady, Kerala)',
+            'Gir National Park Asiatic Lions (Gujarat)',
+            'Mudumalai Tiger Reserve (Tamil Nadu)',
+            'Bandhavgarh & Kanha (Madhya Pradesh)',
+            'Kabini & Nagarhole (Karnataka)',
+            'Rishikesh River Rafting (Uttarakhand)',
+            'Courtallam Waterfalls (Tamil Nadu)',
+            'Hogenakkal Waterfalls (Tamil Nadu)',
+            'Sathuragiri Holy Hills (Tamil Nadu)',
+        ]
+    },
+    {
+        category: 'Major Cities & Gateways',
+        icon: '🏙️',
+        items: [
+            'Chennai (Tamil Nadu)',
+            'Bengaluru (Karnataka)',
+            'Mumbai (Maharashtra)',
+            'Delhi NCR (Capital)',
+            'Hyderabad (Telangana)',
+            'Kolkata (West Bengal)',
+            'Coimbatore (Tamil Nadu)',
+            'Madurai (Tamil Nadu)',
+            'Tiruchirappalli (Trichy, Tamil Nadu)',
+            'Kochi / Cochin (Kerala)',
+            'Ahmedabad (Gujarat)',
+            'Pune (Maharashtra)',
+            'Chandigarh (Punjab & Haryana)',
+            'Salem (Tamil Nadu)',
+            'Tirunelveli (Tamil Nadu)',
+        ]
+    }
+];
 
 export default function AIPlannerPage() {
     const [formData, setFormData] = useState({
-        destination: '',
+        destination: 'Rameshwaram (Tamil Nadu)',
         days: 3,
-        budget: 'budget',
-        style: 'Budget',
+        budget: 'premium',
+        style: 'Premium',
     });
     const [loading, setLoading] = useState(false);
     const [itinerary, setItinerary] = useState<GeneratedItinerary | null>(null);
     const [step, setStep] = useState(0);
+
+    // Custom Combobox State
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('All');
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setIsDropdownOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    const filteredGroups = DESTINATION_GROUPS.map((group) => {
+        if (selectedCategory !== 'All' && group.category !== selectedCategory) {
+            return { ...group, items: [] };
+        }
+        const filteredItems = group.items.filter((item) =>
+            item.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        return { ...group, items: filteredItems };
+    }).filter((g) => g.items.length > 0);
 
     const loadingSteps = [
         'Analyzing temple schedules...',
@@ -99,9 +218,8 @@ export default function AIPlannerPage() {
         setLoading(true);
         setStep(0);
 
-        // Simulated progress steps for better UX
         const totalSteps = loadingSteps.length;
-        const stepInterval = 1000; // 1 second per step
+        const stepInterval = 1000;
 
         const progressInterval = setInterval(() => {
             setStep((s) => (s < totalSteps ? s + 1 : s));
@@ -115,15 +233,16 @@ export default function AIPlannerPage() {
                 formData.style
             );
 
-            if (result && !result.error) {
+            if (result && Array.isArray(result.itinerary)) {
+                setItinerary(result);
+            } else if (result && !result.error) {
                 setItinerary(result);
             } else {
-                const errorMsg = result?.message || "Please check your AI API Key settings.";
-                alert(`AI Connection Error: ${errorMsg} 🙏`);
+                const errorMsg = result?.message || 'Please try again in a few moments.';
+                alert(`Notice: ${errorMsg} 🙏`);
             }
         } catch (error: any) {
             console.error(error);
-            alert("Connection error. Please check your internet or Vercel logs. 🙏");
         } finally {
             clearInterval(progressInterval);
             setLoading(false);
@@ -146,93 +265,204 @@ export default function AIPlannerPage() {
 
             <div className="max-w-5xl mx-auto px-4">
                 {/* Input Form */}
-                <div className="bg-gray-900 rounded-2xl border border-white/10 p-8 mb-8">
-                    <h2 className="text-white font-bold text-xl mb-6 flex items-center gap-2">
-                        <Sparkles className="w-5 h-5 text-orange-400" />
-                        Plan Your Journey
+                <div className="bg-gray-900 rounded-3xl border border-white/10 p-6 sm:p-10 mb-8 shadow-2xl relative">
+                    <h2 className="text-white font-bold text-2xl mb-8 flex items-center gap-3 font-poppins">
+                        <span className="w-8 h-8 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center text-sm">✨</span>
+                        Customize Your Pilgrimage & Tour
                     </h2>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        <div>
-                            <label className="block text-gray-400 text-sm mb-2 font-medium">
-                                <MapPin className="w-4 h-4 inline mr-1.5 text-orange-400" />
-                                Destination
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        {/* Custom Modern Searchable Destination Combobox */}
+                        <div className="relative" ref={dropdownRef}>
+                            <label className="block text-gray-300 text-xs font-semibold uppercase tracking-wider mb-2">
+                                <MapPin className="w-4 h-4 inline mr-1 text-orange-400" />
+                                Target Destination / Pilgrimage Shrine
                             </label>
-                            <select
-                                value={formData.destination}
-                                onChange={(e) => setFormData((p) => ({ ...p, destination: e.target.value }))}
-                                className="input-sacred"
+
+                            {/* Trigger Button */}
+                            <button
+                                type="button"
+                                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                className={`w-full text-left px-5 py-4 rounded-2xl bg-gray-950/80 border transition-all flex items-center justify-between ${
+                                    isDropdownOpen
+                                        ? 'border-orange-500 ring-2 ring-orange-500/20 shadow-lg shadow-orange-500/10'
+                                        : 'border-white/10 hover:border-orange-500/40'
+                                }`}
                             >
-                                <option value="">Select a destination</option>
-                                <optgroup label="Major Cities (Starting Points)">
-                                    {["Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem", "Erode", "Tiruppur", "Vellore", "Tirunelveli", "Thoothukudi", "Dindigul", "Karur", "Namakkal", "Krishnagiri", "Dharmapuri"].map(d => <option key={d} value={d}>{d}</option>)}
-                                </optgroup>
-                                <optgroup label="Famous Temple Destinations">
-                                    {["Rameshwaram", "Madurai Meenakshi Temple", "Chidambaram", "Palani", "Tiruchendur", "Kanchipuram", "Srirangam", "Tiruvannamalai", "Kumbakonam", "Swamimalai", "Thanjavur Brihadeeswarar Temple", "Srivilliputhur", "Samayapuram", "Thirunallar", "Thirukadaiyur", "Oppiliappan Temple", "Alangudi Guru Temple", "Thiruvidaimarudur", "Thiruchendur Murugan Temple", "Suchindram Temple"].map(d => <option key={d} value={d}>{d}</option>)}
-                                </optgroup>
-                                <optgroup label="Hill Stations">
-                                    {["Ooty", "Kodaikanal", "Yercaud", "Valparai", "Kolli Hills", "Meghamalai", "Kotagiri", "Coonoor", "Topslip", "Yelagiri Hills"].map(d => <option key={d} value={d}>{d}</option>)}
-                                </optgroup>
-                                <optgroup label="Beach & Coastal Places">
-                                    {["Kanyakumari", "Mahabalipuram", "Dhanushkodi", "Marina Beach", "Elliots Beach", "Covelong Beach", "Nagapattinam", "Velankanni", "Poompuhar", "Tharangambadi", "Rameshwaram Beach", "Manapad Beach"].map(d => <option key={d} value={d}>{d}</option>)}
-                                </optgroup>
-                                <optgroup label="Nature & Wildlife">
-                                    {["Mudumalai National Park", "Anamalai Tiger Reserve", "Indira Gandhi Wildlife Sanctuary", "Kalakkad Mundanthurai Tiger Reserve", "Point Calimere Wildlife Sanctuary", "Gulf of Mannar Marine Park", "Sathuragiri Hills", "Sirumalai", "Kalvarayan Hills", "Pachaimalai Hills"].map(d => <option key={d} value={d}>{d}</option>)}
-                                </optgroup>
-                            </select>
+                                <div className="flex items-center gap-3">
+                                    <div className="w-9 h-9 rounded-xl bg-orange-500/15 flex items-center justify-center text-orange-400 text-lg font-bold">
+                                        📍
+                                    </div>
+                                    <div>
+                                        <div className="text-white font-bold text-base">
+                                            {formData.destination || 'Choose a destination...'}
+                                        </div>
+                                        <div className="text-gray-500 text-xs">
+                                            Search 100+ tourist & sacred places across India
+                                        </div>
+                                    </div>
+                                </div>
+                                <ChevronDown
+                                    className={`w-5 h-5 text-orange-400 transition-transform duration-300 ${
+                                        isDropdownOpen ? 'rotate-180' : ''
+                                    }`}
+                                />
+                            </button>
+
+                            {/* Floating Custom Dropdown Menu */}
+                            {isDropdownOpen && (
+                                <div className="absolute left-0 right-0 top-full mt-2 z-50 bg-gray-900/98 backdrop-blur-2xl border border-orange-500/30 rounded-2xl shadow-2xl p-4 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                                    {/* Search Input */}
+                                    <div className="relative mb-3">
+                                        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-orange-400" />
+                                        <input
+                                            type="text"
+                                            value={searchQuery}
+                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                            placeholder="Search destination, temple, hill station, beach..."
+                                            className="w-full pl-10 pr-4 py-2.5 bg-gray-950 border border-white/10 rounded-xl text-white text-sm placeholder:text-gray-500 focus:outline-none focus:border-orange-500"
+                                            autoFocus
+                                        />
+                                        {searchQuery && (
+                                            <button
+                                                onClick={() => setSearchQuery('')}
+                                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+                                            >
+                                                <X className="w-3.5 h-3.5" />
+                                            </button>
+                                        )}
+                                    </div>
+
+                                    {/* Category Filter Chips */}
+                                    <div className="flex gap-1.5 overflow-x-auto pb-2 mb-3 scrollbar-none text-xs">
+                                        {[
+                                            { id: 'All', label: '✨ All Places' },
+                                            { id: 'Sacred Temples & Pilgrimages', label: '🛕 Temples' },
+                                            { id: 'Scenic Hill Stations & Mountains', label: '⛰️ Hill Stations' },
+                                            { id: 'Royal Heritage & Palaces', label: '🏰 Heritage' },
+                                            { id: 'Beaches & Coastal Havens', label: '🏖️ Beaches' },
+                                            { id: 'Wildlife, Nature & Adventure', label: '🌿 Wildlife' },
+                                            { id: 'Major Cities & Gateways', label: '🏙️ Cities' },
+                                        ].map((cat) => (
+                                            <button
+                                                key={cat.id}
+                                                type="button"
+                                                onClick={() => setSelectedCategory(cat.id)}
+                                                className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-all ${
+                                                    selectedCategory === cat.id
+                                                        ? 'bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-bold shadow-md'
+                                                        : 'bg-gray-800/80 text-gray-400 hover:text-white hover:bg-gray-800'
+                                                }`}
+                                            >
+                                                {cat.label}
+                                            </button>
+                                        ))}
+                                    </div>
+
+                                    {/* Scrollable Destination List */}
+                                    <div className="max-h-72 overflow-y-auto space-y-4 pr-1">
+                                        {filteredGroups.length === 0 ? (
+                                            <div className="py-8 text-center text-gray-400 text-sm">
+                                                No destinations found matching &quot;{searchQuery}&quot;
+                                            </div>
+                                        ) : (
+                                            filteredGroups.map((group) => (
+                                                <div key={group.category}>
+                                                    <div className="text-[11px] font-bold text-orange-400 uppercase tracking-wider mb-2 flex items-center gap-1.5 px-2">
+                                                        <span>{group.icon}</span>
+                                                        <span>{group.category}</span>
+                                                    </div>
+                                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                                                        {group.items.map((item) => {
+                                                            const isSelected = formData.destination === item;
+                                                            return (
+                                                                <button
+                                                                    key={item}
+                                                                    type="button"
+                                                                    onClick={() => {
+                                                                        setFormData((p) => ({ ...p, destination: item }));
+                                                                        setIsDropdownOpen(false);
+                                                                        setSearchQuery('');
+                                                                    }}
+                                                                    className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs md:text-sm transition-all flex items-center justify-between ${
+                                                                        isSelected
+                                                                            ? 'bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-500/40 text-orange-300 font-semibold shadow-sm'
+                                                                            : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                                                                    }`}
+                                                                >
+                                                                    <span className="leading-snug">{item}</span>
+                                                                    {isSelected && <Check className="w-4 h-4 text-orange-400 shrink-0 ml-1.5" />}
+                                                                </button>
+                                                            );
+                                                        })}
+                                                    </div>
+                                                </div>
+                                            ))
+                                        )}
+                                    </div>
+                                </div>
+                            )}
                         </div>
 
-                        <div>
-                            <label className="block text-gray-400 text-sm mb-2 font-medium">
-                                <Clock className="w-4 h-4 inline mr-1.5 text-orange-400" />
-                                Number of Days: <span className="text-orange-400 font-bold">{formData.days}</span>
-                            </label>
+                        {/* Number of Days Slider */}
+                        <div className="bg-gray-950/60 border border-white/5 rounded-2xl p-5 flex flex-col justify-between">
+                            <div className="flex justify-between items-center mb-2">
+                                <label className="text-gray-300 text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
+                                    <Clock className="w-4 h-4 text-orange-400" />
+                                    Trip Duration
+                                </label>
+                                <span className="px-3 py-1 bg-orange-500/20 border border-orange-500/40 text-orange-400 font-black rounded-lg text-sm">
+                                    {formData.days} {formData.days === 1 ? 'Day' : 'Days'}
+                                </span>
+                            </div>
                             <input
                                 type="range"
                                 min={1}
                                 max={14}
                                 value={formData.days}
                                 onChange={(e) => setFormData((p) => ({ ...p, days: parseInt(e.target.value) }))}
-                                className="w-full accent-orange-500 mt-2"
+                                className="w-full accent-orange-500 my-3 cursor-pointer"
                             />
-                            <div className="flex justify-between text-xs text-gray-500 mt-1">
-                                <span>1 day</span>
-                                <span>14 days</span>
+                            <div className="flex justify-between text-[11px] text-gray-500 font-medium">
+                                <span>1 Day Quick Darshan</span>
+                                <span>7 Days Grand Tour</span>
+                                <span>14 Days Complete Yatra</span>
                             </div>
                         </div>
 
-                        <div>
-                            <label className="block text-gray-400 text-sm mb-2 font-medium">
-                                <DollarSign className="w-4 h-4 inline mr-1.5 text-orange-400" />
-                                Budget Preference
+                        {/* Budget Preference Cards */}
+                        <div className="md:col-span-2">
+                            <label className="block text-gray-300 text-xs font-semibold uppercase tracking-wider mb-3">
+                                <DollarSign className="w-4 h-4 inline mr-1 text-orange-400" />
+                                Budget & Travel Style
                             </label>
-                            <select
-                                value={formData.budget}
-                                onChange={(e) => setFormData((p) => ({ ...p, budget: e.target.value }))}
-                                className="input-sacred"
-                            >
-                                <option value="budget">Budget (₹5,000–₹10,000)</option>
-                                <option value="premium">Premium (₹10,000–₹25,000)</option>
-                                <option value="luxury">Luxury (₹25,000+)</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label className="block text-gray-400 text-sm mb-2 font-medium">
-                                <Users className="w-4 h-4 inline mr-1.5 text-orange-400" />
-                                Travel Style
-                            </label>
-                            <div className="grid grid-cols-3 gap-2">
-                                {['Budget', 'Premium', 'Luxury'].map((style) => (
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                {[
+                                    { id: 'budget', label: 'Budget Yatra', price: '₹5,000–₹10,000', desc: 'Clean AC Cabs, verified standard rooms & darshan assistance', icon: '💰' },
+                                    { id: 'premium', label: 'Premium Comfort', price: '₹10,000–₹25,000', desc: 'AC Sedans/SUV, 3-Star hotels & specialized temple guide', icon: '✨' },
+                                    { id: 'luxury', label: 'VIP Luxury', price: '₹25,000+', desc: 'Innova Crysta, 4/5-Star luxury stays & priority arrangements', icon: '👑' },
+                                ].map((tier) => (
                                     <button
-                                        key={style}
-                                        onClick={() => setFormData((p) => ({ ...p, style }))}
-                                        className={`py-3 rounded-xl text-sm font-medium border transition-all ${formData.style === style
-                                                ? 'bg-gradient-to-r from-orange-500 to-yellow-500 text-white border-transparent'
-                                                : 'bg-gray-800 text-gray-400 border-white/10 hover:border-orange-500/30'
-                                            }`}
+                                        key={tier.id}
+                                        type="button"
+                                        onClick={() => setFormData((p) => ({ ...p, budget: tier.id, style: tier.id === 'budget' ? 'Budget' : tier.id === 'premium' ? 'Premium' : 'Luxury' }))}
+                                        className={`p-5 rounded-2xl border text-left transition-all relative ${
+                                            formData.budget === tier.id
+                                                ? 'bg-gradient-to-br from-orange-500/20 to-yellow-500/10 border-orange-500 ring-2 ring-orange-500/30 shadow-lg shadow-orange-500/10'
+                                                : 'bg-gray-950/60 border-white/10 hover:border-orange-500/30'
+                                        }`}
                                     >
-                                        {style === 'Budget' ? '💰' : style === 'Premium' ? '✨' : '👑'} {style}
+                                        <div className="flex items-center justify-between mb-2">
+                                            <span className="text-2xl">{tier.icon}</span>
+                                            {formData.budget === tier.id && (
+                                                <span className="w-6 h-6 rounded-full bg-orange-500 text-white flex items-center justify-center text-xs">
+                                                    ✓
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div className="text-white font-bold text-base mb-1 font-poppins">{tier.label}</div>
+                                        <div className="text-orange-400 font-bold text-xs mb-2">{tier.price}</div>
+                                        <div className="text-gray-400 text-xs leading-relaxed">{tier.desc}</div>
                                     </button>
                                 ))}
                             </div>

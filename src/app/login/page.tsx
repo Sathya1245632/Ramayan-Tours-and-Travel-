@@ -55,11 +55,11 @@ function LoginContent() {
                 <div className="text-center mb-8">
                     <div className="w-20 h-20 rounded-full overflow-hidden bg-gradient-to-br from-orange-500 to-yellow-500 flex items-center justify-center mx-auto mb-4 shadow-xl shadow-orange-500/30">
                         <NextImage
-                            src="/images/logo-gold.jpg"
+                            src="/images/logo-sunrise-diya.svg"
                             alt="Logo"
                             width={80}
                             height={80}
-                            className="object-cover scale-110"
+                            className="object-contain scale-110"
                         />
                     </div>
                     <h1 className="text-2xl font-bold text-white font-poppins flex items-center justify-center gap-2">

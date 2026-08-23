@@ -3,30 +3,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Search, Star, ArrowRight, MapPin, Clock, Users, ChevronRight, Sparkles, Shield, Phone, Car } from 'lucide-react';
-import { destinations, packages, reviews, stats, taxiPackages } from '@/lib/data';
-
-const heroSlides = [
-    {
-        title: 'Rameshwaram',
-        subtitle: 'Sacred Island of Ramanathaswamy',
-        image: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=1920&q=90',
-    },
-    {
-        title: 'Tirupati',
-        subtitle: 'Abode of Lord Venkateswara',
-        image: '/images/tirupati.jpg',
-    },
-    {
-        title: 'Madurai',
-        subtitle: 'City of Meenakshi Temple',
-        image: '/images/madurai.jpg',
-    },
-];
+import { Search, Star, ArrowRight, MapPin, Clock, Sparkles, Phone } from 'lucide-react';
+import { destinations, reviews, stats } from '@/lib/data';
 
 export default function HomePage() {
     const [searchQuery, setSearchQuery] = useState('');
-    const [currentSlide, setCurrentSlide] = useState(0);
 
     const handleSearch = () => {
         if (searchQuery.trim()) {
@@ -256,11 +237,11 @@ export default function HomePage() {
                                 <div className="flex items-center gap-3 mb-6">
                                     <div className="w-10 h-10 rounded-xl overflow-hidden bg-gradient-to-br from-orange-500 to-yellow-500 flex items-center justify-center">
                                         <Image
-                                            src="/images/logo-gold.jpg"
+                                            src="/images/logo-sunrise-diya.svg"
                                             alt="Ramayan AI"
                                             width={40}
                                             height={40}
-                                            className="object-cover scale-110"
+                                            className="object-contain scale-110"
                                         />
                                     </div>
                                     <div>
@@ -381,11 +362,11 @@ export default function HomePage() {
                         <div className="relative z-10 flex flex-col items-center">
                             <div className="w-20 h-20 rounded-full overflow-hidden flex items-center justify-center shadow-2xl border-2 border-orange-500/30 mb-8 bg-gray-950/50 backdrop-blur-sm group-hover:border-orange-500/60 transition-all duration-500">
                                 <Image
-                                    src="/images/logo-gold.jpg"
+                                    src="/images/logo-sunrise-diya.svg"
                                     alt="Ramayan Tours & Travels"
                                     width={80}
                                     height={80}
-                                    className="object-cover scale-110"
+                                    className="object-contain scale-110"
                                 />
                             </div>
                             <h2 className="text-3xl sm:text-4xl font-black text-white mb-4 font-poppins px-2">

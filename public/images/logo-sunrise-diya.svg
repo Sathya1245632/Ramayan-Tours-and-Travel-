@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="Ramayan Tours and Travels — Ornate Sunrise Diya logo">
+  <defs>
+    <!-- Sun/flame gradient: gold core → saffron edge -->
+    <radialGradient id="sunFlame" cx="50%" cy="55%" r="55%">
+      <stop offset="0%"  stop-color="#fffbeb"/>
+      <stop offset="30%" stop-color="#fcd34d"/>
+      <stop offset="65%" stop-color="#FF7A00"/>
+      <stop offset="100%" stop-color="#c2410c"/>
+    </radialGradient>
+    <!-- Diya / kalasha pot gradient -->
+    <linearGradient id="diyaGold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#fde68a"/>
+      <stop offset="35%" stop-color="#D4AF37"/>
+      <stop offset="70%" stop-color="#b45309"/>
+      <stop offset="100%" stop-color="#7c2d12"/>
+    </linearGradient>
+    <!-- Wave gradient -->
+    <linearGradient id="waveGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#fb923c"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+    <!-- Mandala ring gradient -->
+    <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"  stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#FF7A00"/>
+    </linearGradient>
+    <!-- Petal shape (reused) -->
+    <path id="petal" d="M0 0 C 10 -22, 24 -32, 0 -52 C -24 -32, -10 -22, 0 0 Z"/>
+    <!-- Small flame petal -->
+    <path id="flame" d="M0 0 C 6 -12, 14 -16, 0 -28 C -14 -16, -6 -12, 0 0 Z"/>
+  </defs>
+
+  <!-- ============ Outer mandala frame ============ -->
+  <circle cx="200" cy="200" r="186" fill="none" stroke="url(#ringGrad)" stroke-width="2" opacity="0.7"/>
+  <circle cx="200" cy="200" r="180" fill="none" stroke="#D4AF37" stroke-width="1.2" opacity="0.5"/>
+
+  <!-- 24 dotted beads around the outer ring (temple-jewel style) -->
+  <g fill="#D4AF37">
+    <g transform="translate(200 200)">
+      <circle cx="0" cy="-178" r="2.5"/>
+      <circle cx="46" cy="-172" r="2.5"/>
+      <circle cx="89" cy="-154" r="2.5"/>
+      <circle cx="126" cy="-126" r="2.5"/>
+      <circle cx="154" cy="-89" r="2.5"/>
+      <circle cx="172" cy="-46" r="2.5"/>
+      <circle cx="178" cy="0" r="2.5"/>
+      <circle cx="172" cy="46" r="2.5"/>
+      <circle cx="154" cy="89" r="2.5"/>
+      <circle cx="126" cy="126" r="2.5"/>
+      <circle cx="89" cy="154" r="2.5"/>
+      <circle cx="46" cy="172" r="2.5"/>
+      <circle cx="0" cy="178" r="2.5"/>
+      <circle cx="-46" cy="172" r="2.5"/>
+      <circle cx="-89" cy="154" r="2.5"/>
+      <circle cx="-126" cy="126" r="2.5"/>
+      <circle cx="-154" cy="89" r="2.5"/>
+      <circle cx="-172" cy="46" r="2.5"/>
+      <circle cx="-178" cy="0" r="2.5"/>
+      <circle cx="-172" cy="-46" r="2.5"/>
+      <circle cx="-154" cy="-89" r="2.5"/>
+      <circle cx="-126" cy="-126" r="2.5"/>
+      <circle cx="-89" cy="-154" r="2.5"/>
+      <circle cx="-46" cy="-172" r="2.5"/>
+    </g>
+  </g>
+
+  <!-- ============ Lotus petals ring (8 petals around sun) ============ -->
+  <g transform="translate(200 175)" fill="url(#sunFlame)" opacity="0.55">
+    <use href="#petal" transform="rotate(0)"/>
+    <use href="#petal" transform="rotate(45)"/>
+    <use href="#petal" transform="rotate(90)"/>
+    <use href="#petal" transform="rotate(135)"/>
+    <use href="#petal" transform="rotate(180)"/>
+    <use href="#petal" transform="rotate(225)"/>
+    <use href="#petal" transform="rotate(270)"/>
+    <use href="#petal" transform="rotate(315)"/>
+  </g>
+  <g transform="translate(200 175)" fill="none" stroke="#D4AF37" stroke-width="1.2" opacity="0.8">
+    <use href="#petal" transform="rotate(0)"/>
+    <use href="#petal" transform="rotate(45)"/>
+    <use href="#petal" transform="rotate(90)"/>
+    <use href="#petal" transform="rotate(135)"/>
+    <use href="#petal" transform="rotate(180)"/>
+    <use href="#petal" transform="rotate(225)"/>
+    <use href="#petal" transform="rotate(270)"/>
+    <use href="#petal" transform="rotate(315)"/>
+  </g>
+
+  <!-- ============ Sun (the rising sun) ============ -->
+  <circle cx="200" cy="175" r="44" fill="url(#sunFlame)"/>
+  <circle cx="200" cy="175" r="44" fill="none" stroke="#D4AF37" stroke-width="1.5"/>
+
+  <!-- Sun rays — alternating long/short spokes for temple feel -->
+  <g stroke="#D4AF37" stroke-linecap="round" opacity="0.9">
+    <g transform="translate(200 175)">
+      <!-- long rays -->
+      <line x1="0" y1="-58" x2="0" y2="-78" stroke-width="4"/>
+      <line x1="0" y1="58"  x2="0" y2="78"  stroke-width="4"/>
+      <line x1="-58" y1="0" x2="-78" y2="0" stroke-width="4"/>
+      <line x1="58"  y1="0" x2="78"  y2="0" stroke-width="4"/>
+      <line x1="-41" y1="-41" x2="-55" y2="-55" stroke-width="4"/>
+      <line x1="41"  y1="-41" x2="55"  y2="-55" stroke-width="4"/>
+      <line x1="-41" y1="41"  x2="-55" y2="55"  stroke-width="4"/>
+      <line x1="41"  y1="41"  x2="55"  y2="55"  stroke-width="4"/>
+      <!-- short rays (between the long ones) -->
+      <line x1="-22" y1="-54" x2="-29" y2="-70" stroke-width="2.5"/>
+      <line x1="22"  y1="-54" x2="29"  y2="-70" stroke-width="2.5"/>
+      <line x1="-54" y1="-22" x2="-70" y2="-29" stroke-width="2.5"/>
+      <line x1="-54" y1="22"  x2="-70" y2="29"  stroke-width="2.5"/>
+      <line x1="54"  y1="-22" x2="70"  y2="-29" stroke-width="2.5"/>
+      <line x1="54"  y1="22"  x2="70"  y2="29"  stroke-width="2.5"/>
+      <line x1="-22" y1="54"  x2="-29" y2="70"  stroke-width="2.5"/>
+      <line x1="22"  y1="54"  x2="29"  y2="70"  stroke-width="2.5"/>
+    </g>
+  </g>
+
+  <!-- Central om-style flame inside sun -->
+  <g transform="translate(200 178)" fill="#fffbeb" opacity="0.9">
+    <use href="#flame" transform="scale(0.9)"/>
+  </g>
+
+  <!-- ============ Kalasha / ornate diya ============ -->
+  <!-- Decorative kalasha pot body -->
+  <path d="M150 252
+           Q 152 240, 168 238
+           L 232 238
+           Q 248 240, 250 252
+           Q 262 268, 256 296
+           Q 244 322, 200 328
+           Q 156 322, 144 296
+           Q 138 268, 150 252 Z"
+        fill="url(#diyaGold)"/>
+  <!-- Kalasha neck/rim -->
+  <path d="M166 238 Q 200 228, 234 238"
+        fill="none" stroke="#fde68a" stroke-width="3" stroke-linecap="round"/>
+  <path d="M170 244 Q 200 236, 230 244"
+        fill="none" stroke="#7c2d12" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
+  <!-- Decorative band on the pot -->
+  <path d="M146 274 Q 200 286, 254 274"
+        fill="none" stroke="#fde68a" stroke-width="2.5" opacity="0.85"/>
+  <path d="M150 280 Q 200 292, 250 280"
+        fill="none" stroke="#7c2d12" stroke-width="1" opacity="0.5"/>
+  <!-- Jewel dots on the pot -->
+  <g fill="#fde68a">
+    <circle cx="180" cy="285" r="2.5"/>
+    <circle cx="200" cy="288" r="3"/>
+    <circle cx="220" cy="285" r="2.5"/>
+  </g>
+  <!-- Kalasha pointed tip at bottom -->
+  <path d="M188 326 Q 200 342, 212 326" fill="#7c2d12"/>
+
+  <!-- ============ Ocean waves (Agni Theertham) ============ -->
+  <path d="M30 348
+           Q 75 332, 120 348
+           T 210 348
+           T 300 348
+           T 380 348
+           L 380 384 L 30 384 Z"
+        fill="url(#waveGrad)" opacity="0.92"/>
+  <path d="M30 364
+           Q 90 350, 150 364
+           T 270 364
+           T 380 364"
+        fill="none" stroke="#fff7ed" stroke-width="2.5" opacity="0.75" stroke-linecap="round"/>
+  <path d="M30 374
+           Q 80 365, 130 374
+           T 230 374
+           T 330 374
+           T 380 374"
+        fill="none" stroke="#fde68a" stroke-width="1.5" opacity="0.5" stroke-linecap="round"/>
+
+  <!-- ============ Wordmark ============ -->
+  <text x="200" y="406"
+        font-family="Poppins, Inter, sans-serif"
+        font-size="24" font-weight="700"
+        text-anchor="middle"
+        fill="#1F2937"
+        letter-spacing="2">
+    RAMAYAN TOURS
+  </text>
+</svg>

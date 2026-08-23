@@ -14,14 +14,19 @@ export default function ContactPage() {
         setSending(true);
 
         try {
-            const result = await sendContactMessage(formData);
-            if (result.success) {
-                toast.success('Message sent! We\'ll reply within 24 hours. 🙏');
-                setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
-            } else {
-                toast.error(result.error || 'Failed to send message. Please try again.');
-            }
-        } catch (error) {
+            const message = `🚩 *NEW WEBSITE INQUIRY* 🚩%0A%0A` +
+                `*Name:* ${formData.name}%0A` +
+                `*Phone:* ${formData.phone || 'Not provided'}%0A` +
+                `*Email:* ${formData.email}%0A` +
+                `*Subject:* ${formData.subject || 'General Inquiry'}%0A%0A` +
+                `*Message:* ${formData.message}`;
+
+            window.open(`https://wa.me/917639661626?text=${message}`, '_blank');
+
+            await sendContactMessage(formData);
+            toast.success('🙏 Inquiry sent to WhatsApp & support team!');
+            setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+        } catch {
             toast.error('An unexpected error occurred.');
         } finally {
             setSending(false);
@@ -54,7 +59,7 @@ export default function ContactPage() {
                                     { icon: Phone, title: 'Phone', lines: ['+91 7639 661 626'], color: 'text-green-400' },
                                     { icon: Mail, title: 'Email', lines: ['Ramayantoursandtravels@gmail.com'], color: 'text-blue-400' },
                                     { icon: MapPin, title: 'Address', lines: ['Middle Street, Near Main Temple', 'West Gate, Rameshwaram – 623526'], color: 'text-orange-400' },
-                                    { icon: Clock, title: 'Working Hours', lines: ['Mon – Sat: 9 AM – 8 PM', 'Sunday: 10 AM – 4 PM'], color: 'text-yellow-400' },
+                                    { icon: Clock, title: 'Working Hours', lines: ['Mon – Sun: 24/7 Support', 'Open All Days'], color: 'text-yellow-400' },
                                 ].map(({ icon: Icon, title, lines, color }) => (
                                     <div key={title} className="flex items-start gap-4">
                                         <div className={`w-10 h-10 rounded-xl bg-gray-800 flex items-center justify-center ${color} shrink-0`}>

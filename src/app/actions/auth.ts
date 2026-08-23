@@ -7,8 +7,11 @@ export async function login(formData: any) {
     try {
         const { email, password } = formData;
 
-        // Check for admin specifically (as in existing logic)
-        if (email === 'admin@ramayantours.com' && password === 'JaiShriRam@2025') {
+        // Check for admin
+        const adminEmail = process.env.ADMIN_EMAIL || 'admin@ramayantours.com';
+        const adminPassword = process.env.ADMIN_PASSWORD || 'JaiShriRam@2025';
+
+        if (email === adminEmail && password === adminPassword) {
             cookies().set('admin_session', 'true', {
                 path: '/',
                 maxAge: 86400,

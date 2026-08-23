@@ -15,13 +15,14 @@ import {
     ArrowLeft,
     Navigation2
 } from 'lucide-react';
-import { taxiPackages } from '@/lib/data';
+import { taxiPackages, packages } from '@/lib/data';
 
 export default function PackageDetailPage() {
     const params = useParams();
     const id = params.id as string;
 
-    const pkg = taxiPackages.find(p => p.id === id);
+    const allPackages = [...taxiPackages, ...(packages as any[])];
+    const pkg = allPackages.find(p => p.id === id) as any;
 
     if (!pkg) {
         return (
@@ -65,7 +66,7 @@ export default function PackageDetailPage() {
                             </span>
                             <span className="px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white/80 text-xs font-bold uppercase tracking-widest flex items-center gap-1.5">
                                 <Users className="w-3.5 h-3.5" />
-                                {pkg.perPerson}
+                                {pkg.perPerson || 'Per Person / Vehicle'}
                             </span>
                         </div>
                         
@@ -80,7 +81,7 @@ export default function PackageDetailPage() {
                                 </div>
                                 <div>
                                     <p className="text-xs text-gray-400 font-medium uppercase tracking-wider">Pickup Location</p>
-                                    <p className="text-white font-semibold">{pkg.pickup}</p>
+                                    <p className="text-white font-semibold">{pkg.pickup || 'Rameshwaram / As per request'}</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-3">
@@ -113,7 +114,7 @@ export default function PackageDetailPage() {
                                 </div>
                                 
                                 <div className="space-y-10 relative before:absolute before:left-6 before:top-2 before:bottom-2 before:w-px before:bg-gradient-to-b before:from-orange-500/50 before:via-white/5 before:to-transparent">
-                                    {pkg.itinerary.map((item, idx) => (
+                                    {pkg.itinerary.map((item: any, idx: number) => (
                                         <div key={idx} className="relative pl-16 group">
                                             {/* Step Circle */}
                                             <div className="absolute left-0 top-1 w-12 h-12 rounded-2xl bg-gray-900 border border-white/10 flex items-center justify-center z-10 group-hover:border-orange-500 transition-colors shadow-2xl">
@@ -132,7 +133,7 @@ export default function PackageDetailPage() {
                                                             <MapPin className="w-3.5 h-3.5" /> Major Sightseeing Places:
                                                         </h4>
                                                         <div className="flex flex-wrap gap-2">
-                                                            {item.places.map((place, pIdx) => (
+                                                            {item.places.map((place: string, pIdx: number) => (
                                                                 <span key={pIdx} className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-sm text-gray-300 hover:bg-white/10 transition-colors">
                                                                     {place}
                                                                 </span>
@@ -176,7 +177,7 @@ export default function PackageDetailPage() {
                             </h3>
                             
                             <ul className="space-y-4">
-                                {(pkg.inclusions && pkg.inclusions.length > 0 ? pkg.inclusions : ['Fuel', 'Driver Allowance', 'Toll & Parking']).map((item, idx) => (
+                                {(pkg.inclusions && pkg.inclusions.length > 0 ? pkg.inclusions : ['Fuel', 'Driver Allowance', 'Toll & Parking']).map((item: string, idx: number) => (
                                     <li key={idx} className="flex items-start gap-3 group/item">
                                         <div className="mt-1 w-5 h-5 rounded-full bg-orange-500/10 flex items-center justify-center group-hover/item:bg-orange-500 transition-colors">
                                             <ChevronRight className="w-3 h-3 text-orange-500 group-hover/item:text-white transition-colors" />

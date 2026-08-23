@@ -48,6 +48,7 @@ function BookingContent() {
     const [paymentMethod, setPaymentMethod] = useState('upi');
     const [paymentDetails, setPaymentDetails] = useState({ upiId: '', cardNumber: '', cardName: '', expiry: '', cvv: '' });
     const [isProcessing, setIsProcessing] = useState(false);
+    const [bookingRefId, setBookingRefId] = useState('');
 
     const totalAmount = pkgPrice * travelers;
 
@@ -60,26 +61,67 @@ function BookingContent() {
         setCurrentStep(3);
     };
 
+    const handleWhatsAppBooking = (e?: React.FormEvent) => {
+        if (e) e.preventDefault();
+        const refId = 'RTT' + Date.now().toString().slice(-8);
+        setBookingRefId(refId);
+
+        const message = `🚩 *NEW TOUR BOOKING INQUIRY* 🚩%0A%0A` +
+            `*Booking Ref:* %23${refId}%0A` +
+            `*Package / Tour:* ${pkg.name}%0A` +
+            `*Travelers:* ${travelers} Persons%0A` +
+            `*Travel Date:* ${formData.travelDate}%0A%0A` +
+            `*Customer Name:* ${formData.name}%0A` +
+            `*Phone:* ${formData.phone}%0A` +
+            `*Email:* ${formData.email}%0A` +
+            `*Pickup / Notes:* ${formData.specialRequests || 'Standard package'}%0A%0A` +
+            `*Total Estimated Amount:* ₹${totalAmount.toLocaleString()}%0A%0A` +
+            `_Sent via Ramayan Tours and Travels Website_`;
+
+        window.open(`https://wa.me/917639661626?text=${message}`, '_blank');
+
+        createBooking({
+            pkgId: (pkg as any).id,
+            travelers,
+            formData,
+            totalAmount
+        });
+
+        setCurrentStep(4);
+        toast.success('🎉 Booking details sent to WhatsApp (+91 7639 661 626)!');
+    };
+
     const handlePayment = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsProcessing(true);
 
         try {
-            const result = await createBooking({
+            const refId = 'RTT' + Date.now().toString().slice(-8);
+            setBookingRefId(refId);
+
+            await createBooking({
                 pkgId: (pkg as any).id,
                 travelers,
                 formData,
                 totalAmount
             });
 
-            if (result.success) {
-                setCurrentStep(4);
-                toast.success('🎉 Booking Confirmed! Check your email.');
-            } else {
-                toast.error(result.error || 'Booking failed. Please try again.');
-            }
-        } catch (error) {
-            toast.error('An unexpected error occurred during payment.');
+            // Also send WhatsApp confirmation
+            const message = `🚩 *NEW ONLINE BOOKING* 🚩%0A%0A` +
+                `*Booking Ref:* %23${refId}%0A` +
+                `*Package:* ${pkg.name}%0A` +
+                `*Travelers:* ${travelers} Persons%0A` +
+                `*Travel Date:* ${formData.travelDate}%0A` +
+                `*Customer:* ${formData.name} (${formData.phone})%0A` +
+                `*Amount:* ₹${totalAmount.toLocaleString()}%0A` +
+                `*Payment Method:* ${paymentMethod.toUpperCase()}`;
+
+            window.open(`https://wa.me/917639661626?text=${message}`, '_blank');
+
+            setCurrentStep(4);
+            toast.success('🎉 Booking Confirmed!');
+        } catch {
+            toast.error('An unexpected error occurred.');
         } finally {
             setIsProcessing(false);
         }
@@ -262,17 +304,46 @@ function BookingContent() {
                             </div>
                         )}
 
-                        {/* Step 3: Payment */}
+                        {/* Step 3: Payment & Direct Booking */}
                         {currentStep === 3 && (
                             <div className="bg-gray-900 rounded-2xl border border-white/5 p-6">
-                                <h2 className="text-white font-bold text-xl mb-6 flex items-center gap-2">
+                                <h2 className="text-white font-bold text-xl mb-3 flex items-center gap-2">
                                     <CreditCard className="w-5 h-5 text-orange-400" />
-                                    Payment Options
+                                    Confirm Your Booking
                                 </h2>
+                                <p className="text-gray-400 text-sm mb-6">
+                                    Send your booking instantly to our team on WhatsApp or choose online payment.
+                                </p>
+
+                                {/* WhatsApp Instant Confirm Highlight Card */}
+                                <div className="bg-gradient-to-r from-green-500/15 via-emerald-500/10 to-green-500/5 border border-green-500/30 rounded-2xl p-6 mb-6">
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <div className="w-10 h-10 rounded-xl bg-green-500/20 text-green-400 flex items-center justify-center font-bold text-xl">
+                                            💬
+                                        </div>
+                                        <div>
+                                            <h3 className="text-white font-bold text-base">Instant WhatsApp Confirmation (Recommended)</h3>
+                                            <p className="text-gray-400 text-xs">Direct chat with our Rameshwaram booking manager</p>
+                                        </div>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={handleWhatsAppBooking}
+                                        className="w-full py-3.5 bg-green-500 hover:bg-green-600 text-white font-bold text-base rounded-xl transition-all shadow-lg shadow-green-500/30 flex items-center justify-center gap-2"
+                                    >
+                                        <span>📲 Send Booking to WhatsApp (+91 7639 661 626)</span>
+                                    </button>
+                                </div>
+
+                                <div className="relative flex py-4 items-center mb-6">
+                                    <div className="flex-grow border-t border-white/10"></div>
+                                    <span className="flex-shrink mx-4 text-gray-500 text-xs uppercase tracking-wider font-semibold">Or Pay Online</span>
+                                    <div className="flex-grow border-t border-white/10"></div>
+                                </div>
 
                                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
                                     {[
-                                        { id: 'upi', label: 'UPI', icon: '📱' },
+                                        { id: 'upi', label: 'UPI / GPay', icon: '📱' },
                                         { id: 'credit', label: 'Credit Card', icon: '💳' },
                                         { id: 'debit', label: 'Debit Card', icon: '🏧' },
                                         { id: 'netbanking', label: 'Net Banking', icon: '🏦' },
@@ -297,7 +368,7 @@ function BookingContent() {
                                             <label className="block text-gray-400 text-sm mb-2">UPI ID</label>
                                             <input
                                                 type="text"
-                                                placeholder="yourname@upi"
+                                                placeholder="yourname@upi (e.g. 7639661626@okaxis)"
                                                 className="input-sacred"
                                                 value={paymentDetails.upiId}
                                                 onChange={(e) => setPaymentDetails((p) => ({ ...p, upiId: e.target.value }))}
@@ -340,7 +411,7 @@ function BookingContent() {
 
                                     <div className="flex items-center gap-2 p-4 bg-green-500/10 border border-green-500/30 rounded-xl text-green-400 text-sm">
                                         <Shield className="w-4 h-4 shrink-0" />
-                                        <span>Secured with 256-bit SSL encryption. Your payment is 100% safe.</span>
+                                        <span>Secured with 256-bit SSL encryption. 100% verified pilgrimage operators.</span>
                                     </div>
 
                                     <button
@@ -351,7 +422,7 @@ function BookingContent() {
                                         {isProcessing ? (
                                             <>
                                                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                                Processing Payment...
+                                                Confirming...
                                             </>
                                         ) : (
                                             <>Pay ₹{totalAmount.toLocaleString()} Now</>
@@ -367,15 +438,15 @@ function BookingContent() {
                                 <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-6">
                                     <CheckCircle className="w-10 h-10 text-green-400" />
                                 </div>
-                                <h2 className="text-3xl font-black text-white mb-2">🎉 Booking Confirmed!</h2>
+                                <h2 className="text-3xl font-black text-white mb-2">🎉 Booking Initiated!</h2>
                                 <p className="text-gray-400 mb-6">
-                                    Jai Shri Ram! Your pilgrimage to <span className="text-orange-400 font-semibold">{(pkg as any).destination || (pkg as any).pickup || 'your destination'}</span> is confirmed!
+                                    Jai Shri Ram! Your trip for <span className="text-orange-400 font-semibold">{pkg.name}</span> has been created.
                                 </p>
 
                                 <div className="bg-gray-800 rounded-xl p-6 mb-6 text-left space-y-3">
                                     <div className="flex justify-between text-sm">
-                                        <span className="text-gray-400">Booking ID</span>
-                                        <span className="text-white font-mono font-bold">#RTT{Date.now().toString().slice(-8)}</span>
+                                        <span className="text-gray-400">Booking Reference</span>
+                                        <span className="text-white font-mono font-bold">#{bookingRefId || 'RTT' + Date.now().toString().slice(-8)}</span>
                                     </div>
                                     <div className="flex justify-between text-sm">
                                         <span className="text-gray-400">Package</span>
@@ -386,29 +457,37 @@ function BookingContent() {
                                         <span className="text-white">{travelers} persons</span>
                                     </div>
                                     <div className="flex justify-between text-sm">
-                                        <span className="text-gray-400">Amount Paid</span>
+                                        <span className="text-gray-400">Total Amount</span>
                                         <span className="text-green-400 font-bold">₹{totalAmount.toLocaleString()}</span>
                                     </div>
                                 </div>
 
-                                <p className="text-gray-500 text-sm mb-6">
-                                    A confirmation email has been sent. Our team will contact you within 24 hours to finalize the arrangements.
+                                <p className="text-gray-400 text-sm mb-6">
+                                    Our support team is available 24/7. Connect with us right away on WhatsApp or Call:
                                 </p>
 
                                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                                    <Link
-                                        href="/"
-                                        className="px-6 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-orange-500/30 transition-all"
+                                    <a
+                                        href={`https://wa.me/917639661626?text=Hi%20Ramayan%20Tours,%20I%20have%20booked%20${encodeURIComponent(pkg.name)}%20(Ref:%20%23${bookingRefId})`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-green-500/30 transition-all flex items-center gap-2 justify-center"
                                     >
-                                        Back to Home
-                                    </Link>
+                                        <span>💬 Chat on WhatsApp</span>
+                                    </a>
                                     <a
                                         href="tel:+917639661626"
                                         className="px-6 py-3 border border-white/20 text-white rounded-full font-semibold hover:border-orange-500/50 hover:bg-orange-500/10 transition-all flex items-center gap-2 justify-center"
                                     >
                                         <Phone className="w-4 h-4" />
-                                        Call Support
+                                        Call: +91 7639 661 626
                                     </a>
+                                    <Link
+                                        href="/"
+                                        className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-full font-semibold transition-all"
+                                    >
+                                        Back to Home
+                                    </Link>
                                 </div>
                             </div>
                         )}

@@ -18,11 +18,11 @@ export default function Footer() {
                         <Link href="/" className="flex items-center gap-3 mb-6 group cursor-pointer inline-flex">
                             <div className="w-14 h-14 rounded-full overflow-hidden flex items-center justify-center shadow-2xl border border-white/10 group-hover:border-orange-500/50 transition-all duration-300">
                                 <Image
-                                    src="/images/logo-gold.jpg"
+                                    src="/images/logo-sunrise-diya.svg"
                                     alt="Ramayan Tours & Travels"
                                     width={56}
                                     height={56}
-                                    className="object-cover scale-110"
+                                    className="object-contain scale-110"
                                 />
                             </div>
                             <div>
@@ -116,7 +116,7 @@ export default function Footer() {
                                 <Phone className="w-4 h-4 text-orange-400 mt-0.5 shrink-0" />
                                 <div>
                                     <div className="text-white text-sm">+91 7639 661 626</div>
-                                    <div className="text-gray-400 text-xs">Mon–Sat, 9AM–8PM</div>
+                                    <div className="text-gray-400 text-xs">Mon–Sun, 24/7 Support</div>
                                 </div>
                             </li>
                             <li className="flex items-start gap-3">
