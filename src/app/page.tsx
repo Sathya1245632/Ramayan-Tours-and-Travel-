@@ -3,8 +3,9 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Search, Star, ArrowRight, MapPin, Clock, Sparkles, Phone } from 'lucide-react';
+import { Search, Star, ArrowRight, MapPin, Clock, Sparkles, Phone, ShieldCheck } from 'lucide-react';
 import { destinations, reviews, stats } from '@/lib/data';
+import GovtTrustSection from '@/components/GovtTrustSection';
 
 export default function HomePage() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -99,11 +100,15 @@ export default function HomePage() {
                     </div>
 
                     {/* Trust badges */}
-                    <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400 mt-10">
+                    <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 text-xs sm:text-sm text-gray-400 mt-10">
+                        <div className="flex items-center gap-2 px-3 py-1.5 bg-green-500/10 border border-green-500/30 rounded-full text-green-400 font-semibold">
+                            <ShieldCheck className="w-4 h-4 text-green-400" />
+                            <span>Govt. MSME Reg: UDYAM-TN-19-0011517</span>
+                        </div>
                         {[
                             { icon: '⭐', text: '4.9/5 from 50,000+ pilgrims' },
-                            { icon: '🛡️', text: '100% Secure Booking' },
-                            { icon: '📞', text: '24/7 Pilgrim Support' },
+                            { icon: '🛡️', text: '100% Verified Local Guides' },
+                            { icon: '📞', text: '24/7 Support: +91 7639 661 626' },
                         ].map(({ icon, text }) => (
                             <div key={text} className="flex items-center gap-2">
                                 <span>{icon}</span>
@@ -129,6 +134,9 @@ export default function HomePage() {
                     </div>
                 </div>
             </section>
+
+            {/* ─── GOVT OF INDIA MSME ACCREDITATION SECTION ──── */}
+            <GovtTrustSection />
 
             {/* ─── DESTINATIONS ─────────────────────────────── */}
             <section className="py-16 md:py-24 px-4">

@@ -502,7 +502,7 @@ export default function AdminPage() {
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                                 {[
-                                    { label: 'Total Revenue (2025)', value: '₹26,04,000', icon: '💰' },
+                                    { label: 'Total Revenue (2026)', value: '₹26,04,000', icon: '💰' },
                                     { label: 'This Month', value: '₹6,12,000', icon: '📅' },
                                     { label: 'Avg. Booking Value', value: '₹18,450', icon: '📊' },
                                 ].map(({ label, value, icon }) => (

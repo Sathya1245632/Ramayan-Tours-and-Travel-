@@ -4,10 +4,11 @@ import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
-import { CheckCircle, CreditCard, ArrowRight, Shield, Star, Phone } from 'lucide-react';
+import { CheckCircle, CreditCard, ArrowRight, Shield, Star, Phone, ShieldCheck, FileText } from 'lucide-react';
 import { packages, taxiPackages } from '@/lib/data';
 import toast from 'react-hot-toast';
 import { createBooking } from '@/app/actions/booking';
+import CertificateModal from '@/components/CertificateModal';
 
 const steps = ['Select Package', 'Traveler Details', 'Payment', 'Confirmation'];
 
@@ -49,6 +50,7 @@ function BookingContent() {
     const [paymentDetails, setPaymentDetails] = useState({ upiId: '', cardNumber: '', cardName: '', expiry: '', cvv: '' });
     const [isProcessing, setIsProcessing] = useState(false);
     const [bookingRefId, setBookingRefId] = useState('');
+    const [isCertOpen, setIsCertOpen] = useState(false);
 
     const totalAmount = pkgPrice * travelers;
 
@@ -409,9 +411,18 @@ function BookingContent() {
                                         </div>
                                     )}
 
-                                    <div className="flex items-center gap-2 p-4 bg-green-500/10 border border-green-500/30 rounded-xl text-green-400 text-sm">
-                                        <Shield className="w-4 h-4 shrink-0" />
-                                        <span>Secured with 256-bit SSL encryption. 100% verified pilgrimage operators.</span>
+                                    <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-4 bg-green-500/10 border border-green-500/30 rounded-xl text-green-400 text-xs sm:text-sm">
+                                        <div className="flex items-center gap-2.5">
+                                            <ShieldCheck className="w-5 h-5 text-green-400 shrink-0" />
+                                            <span><strong>Govt. MSME Registered:</strong> UDYAM-TN-19-0011517 • 100% Safe & Verified</span>
+                                        </div>
+                                        <button
+                                            type="button"
+                                            onClick={() => setIsCertOpen(true)}
+                                            className="text-xs text-orange-400 hover:text-orange-300 underline font-semibold whitespace-nowrap cursor-pointer"
+                                        >
+                                            View Govt. Certificate 📜
+                                        </button>
                                     </div>
 
                                     <button
@@ -531,10 +542,25 @@ function BookingContent() {
                                 <Shield className="w-3.5 h-3.5" />
                                 Free cancellation within 48 hours
                             </div>
+
+                            <button
+                                type="button"
+                                onClick={() => setIsCertOpen(true)}
+                                className="mt-3 w-full py-2 px-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-xs text-gray-300 flex items-center justify-between transition-all cursor-pointer"
+                            >
+                                <span className="flex items-center gap-1.5 text-orange-400">
+                                    <ShieldCheck className="w-3.5 h-3.5" />
+                                    <span>Govt. MSME Certified</span>
+                                </span>
+                                <span className="text-[10px] text-gray-400 font-mono">View 📜</span>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {/* Certificate Modal */}
+            <CertificateModal isOpen={isCertOpen} onClose={() => setIsCertOpen(false)} />
         </div>
     );
 }

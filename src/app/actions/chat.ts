@@ -33,7 +33,7 @@ Guidelines:
 `;
 
 export async function chat(message: string, history: { role: 'user' | 'model'; parts: string }[]) {
-    const modelsToTry = ['gemini-3.6-flash', 'gemini-1.5-flash'];
+    const modelsToTry = ['gemini-3.6-flash', 'gemini-3.7-flash', 'gemini-flash-latest'];
     const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
@@ -150,7 +150,7 @@ function buildSmartFallbackItinerary(destination: string, days: number, budget: 
 }
 
 export async function generateAIItinerary(destination: string, days: number, budget: string, style: string) {
-    const modelsToTry = ['gemini-3.6-flash', 'gemini-1.5-flash'];
+    const modelsToTry = ['gemini-3.6-flash', 'gemini-3.7-flash', 'gemini-flash-latest'];
     const apiKey = process.env.GEMINI_API_KEY;
 
     if (apiKey) {

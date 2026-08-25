@@ -1,10 +1,13 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Phone, Mail, MapPin, Instagram, Facebook, Youtube, Twitter } from 'lucide-react';
+import { Phone, Mail, MapPin, Instagram, Facebook, Youtube, Twitter, ShieldCheck } from 'lucide-react';
+import CertificateModal from '@/components/CertificateModal';
 
 export default function Footer() {
+    const [isCertOpen, setIsCertOpen] = useState(false);
     return (
         <footer className="bg-gray-950 border-t border-white/10 pt-20 pb-8">
             {/* Sacred pattern overlay */}
@@ -139,9 +142,19 @@ export default function Footer() {
 
                 {/* Bottom bar */}
                 <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-gray-500 text-sm text-center">
-                        © 2025 Ramayan Tours and Travels. All rights reserved. Made with ❤️ in India.
-                    </p>
+                    <div className="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
+                        <p className="text-gray-500 text-sm">
+                            © 2026 Ramayan Tours and Travels. All rights reserved.
+                        </p>
+                        <button
+                            type="button"
+                            onClick={() => setIsCertOpen(true)}
+                            className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-500/10 border border-green-500/30 rounded-full text-green-400 text-xs hover:bg-green-500/20 transition-all cursor-pointer font-medium"
+                        >
+                            <ShieldCheck className="w-3.5 h-3.5" />
+                            <span>Govt. MSME Reg: UDYAM-TN-19-0011517</span>
+                        </button>
+                    </div>
                     <div className="flex gap-6">
                         <Link href="/privacy" className="text-gray-500 hover:text-orange-400 text-sm transition-colors">
                             Privacy Policy
@@ -155,6 +168,9 @@ export default function Footer() {
                     </div>
                 </div>
             </div>
+
+            {/* Certificate Modal */}
+            <CertificateModal isOpen={isCertOpen} onClose={() => setIsCertOpen(false)} />
         </footer>
     );
 }

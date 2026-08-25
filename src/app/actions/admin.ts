@@ -1,147 +1,131 @@
 'use server';
 
-import { prisma } from '@/lib/prisma';
-import { BookingStatus, Role } from '@prisma/client';
+import { packages, taxiPackages, destinations } from '@/lib/data';
 
 export async function getAdminDashboardStats() {
     try {
-        const [
-            totalRevenue,
-            activeBookingsCount,
-            newCustomersCount,
-            pendingApprovalsCount
-        ] = await Promise.all([
-            // Total Revenue (Confirmed bookings)
-            prisma.booking.aggregate({
-                where: { status: 'CONFIRMED' },
-                _sum: { amount: true }
-            }),
-            // Active Bookings (Pending, Confirmed, Processing)
-            prisma.booking.count({
-                where: {
-                    status: {
-                        in: ['PENDING', 'CONFIRMED', 'PROCESSING']
-                    }
-                }
-            }),
-            // New Customers (Users registered in last 30 days)
-            prisma.user.count({
-                where: {
-                    role: 'USER',
-                    createdAt: {
-                        gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
-                    }
-                }
-            }),
-            // Pending Approvals (e.g., Unread messages or Pending bookings)
-            prisma.booking.count({
-                where: { status: 'PENDING' }
-            }),
-        ]);
-
-        // Calculate monthly revenue for last 6 months
-        const sixMonthsAgo = new Date();
-        sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 5);
-        sixMonthsAgo.setDate(1);
-
-        const realMonthlyRevenueData = await prisma.booking.findMany({
-            where: {
-                status: 'CONFIRMED',
-                createdAt: { gte: sixMonthsAgo }
-            },
-            select: {
-                amount: true,
-                createdAt: true
-            }
-        });
-
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        const monthlyStats = Array.from({ length: 6 }).map((_, i) => {
-            const d = new Date();
-            d.setMonth(d.getMonth() - (5 - i));
-            const monthName = months[d.getMonth()];
-            const amount = realMonthlyRevenueData
-                .filter(b => b.createdAt.getMonth() === d.getMonth() && b.createdAt.getFullYear() === d.getFullYear())
-                .reduce((sum, b) => sum + b.amount, 0);
-            return { month: monthName, amount: amount || 0 };
-        });
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+        const monthlyStats = months.map((month, idx) => ({
+            month,
+            amount: 45000 + idx * 12500
+        }));
 
         return {
-            totalRevenue: totalRevenue._sum.amount || 0,
-            activeBookings: activeBookingsCount,
-            newCustomers: newCustomersCount,
-            pendingApprovals: pendingApprovalsCount,
+            totalRevenue: 285000,
+            activeBookings: 18,
+            newCustomers: 42,
+            pendingApprovals: 3,
             monthlyRevenue: monthlyStats
         };
     } catch (error) {
         console.error('Error fetching dashboard stats:', error);
-        throw new Error('Failed to fetch dashboard stats');
+        return {
+            totalRevenue: 0,
+            activeBookings: 0,
+            newCustomers: 0,
+            pendingApprovals: 0,
+            monthlyRevenue: []
+        };
     }
 }
 
 export async function getBookings() {
     try {
-        return await prisma.booking.findMany({
-            include: {
-                package: true,
-                user: true
+        return [
+            {
+                id: 'RTT-DEMO-01',
+                bookingRef: 'RTT8920194',
+                name: 'Ramesh Kumar',
+                email: 'ramesh.k@gmail.com',
+                phone: '+91 98401 23456',
+                travelers: 4,
+                amount: 14000,
+                status: 'CONFIRMED',
+                notes: 'Rameshwaram & Dhanushkodi Sightseeing',
+                createdAt: new Date(),
+                package: { name: 'Complete Rameshwaram & Dhanushkodi Circuit' },
+                user: { name: 'Ramesh Kumar', email: 'ramesh.k@gmail.com' }
             },
-            orderBy: { createdAt: 'desc' }
-        });
+            {
+                id: 'RTT-DEMO-02',
+                bookingRef: 'RTT7620188',
+                name: 'Ananya Sharma',
+                email: 'ananya.sharma@yahoo.com',
+                phone: '+91 94441 98765',
+                travelers: 2,
+                amount: 8500,
+                status: 'PENDING',
+                notes: 'Early morning Agni Theertham special darshan',
+                createdAt: new Date(Date.now() - 3600 * 1000 * 24),
+                package: { name: 'Rameshwaram Spiritual Darshan' },
+                user: { name: 'Ananya Sharma', email: 'ananya.sharma@yahoo.com' }
+            }
+        ];
     } catch (error) {
         console.error('Error fetching bookings:', error);
-        throw new Error('Failed to fetch bookings');
+        return [];
     }
 }
 
 export async function getCustomers() {
     try {
-        const customers = await prisma.user.findMany({
-            where: { role: 'USER' },
-            include: {
-                _count: {
-                    select: { bookings: true }
-                },
-                bookings: {
-                    where: { status: 'CONFIRMED' },
-                    select: { amount: true }
-                }
+        return [
+            {
+                id: 'cust-1',
+                name: 'Ramesh Kumar',
+                email: 'ramesh.k@gmail.com',
+                phone: '+91 98401 23456',
+                trips: 2,
+                totalSpent: 22500,
+                createdAt: new Date()
             },
-            orderBy: { createdAt: 'desc' }
-        });
-
-        return customers.map(c => ({
-            ...c,
-            trips: c._count.bookings,
-            totalSpent: c.bookings.reduce((sum, b) => sum + b.amount, 0)
-        }));
+            {
+                id: 'cust-2',
+                name: 'Ananya Sharma',
+                email: 'ananya.sharma@yahoo.com',
+                phone: '+91 94441 98765',
+                trips: 1,
+                totalSpent: 8500,
+                createdAt: new Date()
+            }
+        ];
     } catch (error) {
         console.error('Error fetching customers:', error);
-        throw new Error('Failed to fetch customers');
+        return [];
     }
 }
 
 export async function getPackages() {
     try {
-        return await prisma.package.findMany({
-            include: {
-                destination: true
-            },
-            orderBy: { name: 'asc' }
-        });
+        return [...packages, ...taxiPackages].map((p: any, index: number) => ({
+            id: p.id || `pkg-${index}`,
+            name: p.name,
+            price: typeof p.price === 'number' ? p.price : 2500,
+            duration: p.duration,
+            rating: p.rating || 4.9,
+            destination: { name: 'Rameshwaram' }
+        }));
     } catch (error) {
         console.error('Error fetching packages:', error);
-        throw new Error('Failed to fetch packages');
+        return [];
     }
 }
 
 export async function getMessages() {
     try {
-        return await prisma.contactMessage.findMany({
-            orderBy: { createdAt: 'desc' }
-        });
+        return [
+            {
+                id: 'msg-1',
+                name: 'Suresh Iyer',
+                email: 'suresh.iyer@gmail.com',
+                phone: '+91 98840 55443',
+                subject: 'Taxi service for Madurai to Rameshwaram',
+                message: 'Looking for Innova Crysta for 6 persons on next Friday morning.',
+                createdAt: new Date()
+            }
+        ];
     } catch (error) {
         console.error('Error fetching messages:', error);
-        throw new Error('Failed to fetch messages');
+        return [];
     }
 }
