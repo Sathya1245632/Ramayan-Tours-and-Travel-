@@ -243,13 +243,13 @@ export default function HomePage() {
                         <div className="relative">
                             <div className="bg-gray-900 rounded-2xl border border-white/10 p-6 shadow-2xl">
                                 <div className="flex items-center gap-3 mb-6">
-                                    <div className="w-10 h-10 rounded-xl overflow-hidden bg-gradient-to-br from-orange-500 to-yellow-500 flex items-center justify-center">
+                                    <div className="w-10 h-10 rounded-xl overflow-hidden bg-white flex items-center justify-center p-1 shadow-md">
                                         <Image
-                                            src="/images/logo-sunrise-diya.svg"
+                                            src="/images/brand-emblem-transparent.png"
                                             alt="Ramayan AI"
                                             width={40}
                                             height={40}
-                                            className="object-contain scale-110"
+                                            className="object-contain"
                                         />
                                     </div>
                                     <div>
@@ -366,16 +366,21 @@ export default function HomePage() {
             <section className="py-16 md:py-24 px-4">
                 <div className="max-w-4xl mx-auto text-center">
                     <div className="relative bg-gradient-to-br from-orange-500/20 via-yellow-500/10 to-orange-500/5 rounded-3xl border border-orange-500/20 p-6 sm:p-12 overflow-hidden">
-                        <div className="absolute inset-0 temple-pattern opacity-40" />
                         <div className="relative z-10 flex flex-col items-center">
-                            <div className="w-20 h-20 rounded-full overflow-hidden flex items-center justify-center shadow-2xl border-2 border-orange-500/30 mb-8 bg-gray-950/50 backdrop-blur-sm group-hover:border-orange-500/60 transition-all duration-500">
-                                <Image
-                                    src="/images/logo-sunrise-diya.svg"
-                                    alt="Ramayan Tours & Travels"
-                                    width={80}
-                                    height={80}
-                                    className="object-contain scale-110"
-                                />
+                            <div className="flex items-center gap-3 mb-8">
+                                <div className="w-16 h-16 rounded-full overflow-hidden flex items-center justify-center shadow-2xl border-2 border-orange-500/30 bg-white p-1.5">
+                                    <Image
+                                        src="/images/brand-emblem-square.png"
+                                        alt="Ramayan Tours & Travels"
+                                        width={64}
+                                        height={64}
+                                        className="object-contain w-full h-full"
+                                    />
+                                </div>
+                                <div className="text-left">
+                                    <div className="text-white font-black text-2xl sm:text-3xl font-poppins leading-none">Ramayan</div>
+                                    <div className="text-orange-400 text-xs font-bold tracking-[0.25em] mt-1 uppercase">TOURS & TRAVELS</div>
+                                </div>
                             </div>
                             <h2 className="text-3xl sm:text-4xl font-black text-white mb-4 font-poppins px-2">
                                 Begin Your Sacred Journey Today

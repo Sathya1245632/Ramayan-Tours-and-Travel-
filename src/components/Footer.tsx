@@ -19,18 +19,18 @@ export default function Footer() {
                     {/* Brand */}
                     <div className="lg:col-span-1">
                         <Link href="/" className="flex items-center gap-3 mb-6 group cursor-pointer inline-flex">
-                            <div className="w-14 h-14 rounded-full overflow-hidden flex items-center justify-center shadow-2xl border border-white/10 group-hover:border-orange-500/50 transition-all duration-300">
+                            <div className="w-14 h-14 rounded-full overflow-hidden flex items-center justify-center shadow-2xl border-2 border-orange-500/30 bg-white p-1 group-hover:border-orange-400 group-hover:scale-105 transition-all duration-300">
                                 <Image
-                                    src="/images/logo-sunrise-diya.svg"
-                                    alt="Ramayan Tours & Travels"
+                                    src="/images/brand-emblem-square.png"
+                                    alt="Ramayan Tours & Travels Emblem"
                                     width={56}
                                     height={56}
-                                    className="object-contain scale-110"
+                                    className="object-contain w-full h-full"
                                 />
                             </div>
                             <div>
-                                <div className="text-white font-bold text-xl font-poppins tracking-tight group-hover:text-orange-400 transition-colors">Ramayan</div>
-                                <div className="text-orange-400 text-[10px] font-bold tracking-[0.2em] mt-1 opacity-80 group-hover:opacity-100 transition-opacity uppercase">TOURS & TRAVELS</div>
+                                <div className="text-white font-black text-2xl font-poppins tracking-tight group-hover:text-orange-400 transition-colors">Ramayan</div>
+                                <div className="text-orange-400 text-[11px] font-bold tracking-[0.22em] mt-1 opacity-90 group-hover:opacity-100 transition-opacity uppercase">TOURS & TRAVELS</div>
                             </div>
                         </Link>
                         <p className="text-gray-400 text-sm leading-relaxed mb-6">

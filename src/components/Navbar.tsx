@@ -39,22 +39,22 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-20">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-3 group">
-                        <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center shadow-lg border-2 border-orange-500/20 group-hover:border-orange-500/50 transition-all duration-300">
+                    <Link href="/" className="flex items-center gap-3 group py-1">
+                        <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center shadow-lg shadow-orange-500/20 border-2 border-orange-500/40 bg-white p-1 group-hover:border-orange-400 group-hover:scale-105 transition-all duration-300">
                             <Image
-                                src="/images/logo-sunrise-diya.svg"
-                                alt="Ramayan Tours & Travels"
+                                src="/images/brand-emblem-square.png"
+                                alt="Ramayan Tours & Travels Emblem"
                                 width={48}
                                 height={48}
                                 priority
-                                className="object-contain scale-110"
+                                className="object-contain w-full h-full"
                             />
                         </div>
-                            <div className="flex flex-col">
-                            <div className="text-white font-bold text-lg sm:text-xl leading-none font-poppins tracking-tight group-hover:text-orange-400 transition-colors">
+                        <div className="flex flex-col">
+                            <div className="text-white font-black text-xl sm:text-2xl leading-none font-poppins tracking-tight group-hover:text-orange-400 transition-colors">
                                 Ramayan
                             </div>
-                            <div className="text-orange-400 text-[8px] sm:text-[10px] font-bold tracking-[0.2em] mt-1 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div className="text-orange-400 text-[9px] sm:text-[10px] font-bold tracking-[0.22em] mt-1 opacity-90 group-hover:opacity-100 transition-opacity uppercase">
                                 TOURS & TRAVELS
                             </div>
                         </div>

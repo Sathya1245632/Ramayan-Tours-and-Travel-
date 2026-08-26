@@ -87,13 +87,13 @@ export default function ChatBot() {
                     {/* Header */}
                     <div className="bg-gradient-to-r from-orange-500 to-yellow-500 p-4 flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-white/20 overflow-hidden flex items-center justify-center">
+                            <div className="w-10 h-10 rounded-full bg-white overflow-hidden flex items-center justify-center p-1 shadow-md">
                                 <Image
-                                    src="/images/logo-sunrise-diya.svg"
+                                    src="/images/brand-emblem-transparent.png"
                                     alt="Ramayan Assistant"
                                     width={40}
                                     height={40}
-                                    className="object-contain scale-110"
+                                    className="object-contain"
                                 />
                             </div>
                             <div>
@@ -125,11 +125,11 @@ export default function ChatBot() {
                                     }`}>
                                     {msg.sender === 'bot' ? (
                                         <Image
-                                            src="/images/logo-sunrise-diya.svg"
+                                            src="/images/brand-emblem-transparent.png"
                                             alt="Bot"
                                             width={28}
                                             height={28}
-                                            className="object-contain scale-110"
+                                            className="object-contain bg-white p-0.5 w-full h-full"
                                         />
                                     ) : <User className="w-3.5 h-3.5 text-white" />}
                                 </div>
@@ -149,13 +149,13 @@ export default function ChatBot() {
 
                         {isTyping && (
                             <div className="flex gap-2.5">
-                                <div className="w-7 h-7 rounded-full overflow-hidden bg-gradient-to-br from-orange-500 to-yellow-500 flex items-center justify-center">
+                                <div className="w-7 h-7 rounded-full overflow-hidden bg-white flex items-center justify-center p-0.5">
                                     <Image
-                                        src="/images/logo-sunrise-diya.svg"
+                                        src="/images/brand-emblem-transparent.png"
                                         alt="Bot"
                                         width={28}
                                         height={28}
-                                        className="object-contain scale-110"
+                                        className="object-contain"
                                     />
                                 </div>
                                 <div className="bg-gray-800 px-4 py-3 rounded-2xl rounded-tl-sm border border-white/5">

@@ -154,13 +154,13 @@ export default function AdminPage() {
             <aside className={`${sidebarOpen ? 'w-64' : 'w-16'} transition-all duration-300 bg-gray-900 border-r border-white/5 flex flex-col shrink-0 min-h-screen`}>
                 {/* Sidebar Header */}
                 <div className="p-4 border-b border-white/5 flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl overflow-hidden bg-gradient-to-br from-orange-500 to-yellow-500 flex items-center justify-center shrink-0">
+                    <div className="w-10 h-10 rounded-xl overflow-hidden bg-white flex items-center justify-center shrink-0 p-1 shadow-md">
                         <NextImage
-                            src="/images/logo-sunrise-diya.svg"
-                            alt="Logo"
+                            src="/images/brand-emblem-transparent.png"
+                            alt="Ramayan Tours Emblem"
                             width={40}
                             height={40}
-                            className="object-contain scale-110"
+                            className="object-contain"
                         />
                     </div>
                     {sidebarOpen && (
