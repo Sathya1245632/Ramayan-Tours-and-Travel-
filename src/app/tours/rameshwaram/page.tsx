@@ -65,7 +65,7 @@ export default function RameshwaramTours() {
     return (
         <main className="min-h-screen bg-gray-950 text-white pb-20">
             {/* Hero Section */}
-            <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
+            <section className="relative min-h-[85vh] md:h-[75vh] flex items-center justify-center overflow-hidden pt-28 pb-16 md:py-24">
                 <Image 
                     src="/images/rameshwaram-hero.jpg"
                     alt="Rameshwaram Temple"
@@ -73,29 +73,29 @@ export default function RameshwaramTours() {
                     className="object-cover opacity-50 scale-105"
                     priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/60 to-gray-950/30" />
                 <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm font-medium mb-6 animate-fade-in">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs sm:text-sm font-medium mb-6 animate-fade-in">
                         <Star className="w-4 h-4 fill-orange-400" />
                         <span>Top Rated Travels in Rameshwaram</span>
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-bold font-poppins mb-6 leading-tight">
+                    <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold font-poppins mb-4 sm:mb-6 leading-tight">
                         Experience the Magic of <span className="bg-gradient-to-r from-orange-500 to-yellow-500 bg-clip-text text-transparent">Rameshwaram</span>
                     </h1>
-                    <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-light">
+                    <p className="text-sm sm:text-base md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto font-light">
                         Authentic temple tours, Dhanushkodi explorations, and reliable taxi services by local experts.
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-xs sm:max-w-none mx-auto">
                         <Link 
                             href="https://wa.me/917639661626?text=I'm%20interested%20in%20a%20Rameshwaram%20tour%20package"
-                            className="px-8 py-4 bg-orange-600 hover:bg-orange-500 text-white rounded-xl font-bold transition-all flex items-center justify-center gap-2 shadow-lg shadow-orange-900/20"
+                            className="px-6 sm:px-8 py-3.5 sm:py-4 bg-orange-600 hover:bg-orange-500 text-white rounded-xl font-bold transition-all flex items-center justify-center gap-2 shadow-lg shadow-orange-900/20 text-sm sm:text-base"
                         >
-                            <Phone className="w-5 h-5" />
+                            <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
                             Book Your Ride
                         </Link>
                         <Link 
                             href="#packages"
-                            className="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl font-bold transition-all flex items-center justify-center gap-2 backdrop-blur-sm"
+                            className="px-6 sm:px-8 py-3.5 sm:py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl font-bold transition-all flex items-center justify-center gap-2 backdrop-blur-sm text-sm sm:text-base"
                         >
                             View Packages
                         </Link>
@@ -104,18 +104,18 @@ export default function RameshwaramTours() {
             </section>
 
             {/* Quick Stats */}
-            <div className="container mx-auto px-4 -mt-16 relative z-20">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="container mx-auto px-4 mt-6 md:-mt-12 relative z-20">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
                     {[
                         { icon: ShieldCheck, label: 'Safety Verified', value: '100%' },
                         { icon: Clock, label: 'Available', value: '24/7' },
                         { icon: Car, label: 'Clean Vehicles', value: '30+' },
                         { icon: MapPin, label: 'Local Guides', value: 'Expert' }
                     ].map((stat, idx) => (
-                        <div key={idx} className="bg-gray-900/80 backdrop-blur-md border border-white/5 p-6 rounded-2xl text-center">
-                            <stat.icon className="w-8 h-8 text-orange-500 mx-auto mb-3" />
-                            <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
-                            <div className="text-xs text-gray-400 uppercase tracking-wider">{stat.label}</div>
+                        <div key={idx} className="bg-gray-900/90 backdrop-blur-md border border-white/10 p-4 sm:p-6 rounded-2xl text-center shadow-lg">
+                            <stat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-orange-500 mx-auto mb-2 sm:mb-3" />
+                            <div className="text-xl sm:text-2xl font-bold text-white mb-1">{stat.value}</div>
+                            <div className="text-[10px] sm:text-xs text-gray-400 uppercase tracking-wider">{stat.label}</div>
                         </div>
                     ))}
                 </div>

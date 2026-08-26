@@ -474,11 +474,7 @@ export default function AIPlannerPage() {
                         disabled={!formData.destination || loading}
                         className="w-full py-4 bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-bold text-lg rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-xl hover:shadow-orange-500/40 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-3"
                     >
-                        {loading ? (
-                            <Loader2 className="w-5 h-5 animate-spin" />
-                        ) : (
-                            <Sparkles className="w-5 h-5" />
-                        )}
+                        {loading && <Loader2 className="w-5 h-5 animate-spin" />}
                         {loading ? loadingSteps[step - 1] || 'Generating...' : '✨ Generate My Sacred Itinerary'}
                     </button>
 
