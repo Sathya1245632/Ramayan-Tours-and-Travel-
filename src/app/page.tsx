@@ -108,7 +108,7 @@ export default function HomePage() {
                         {[
                             { icon: '⭐', text: '4.9/5 from 50,000+ pilgrims' },
                             { icon: '🛡️', text: '100% Verified Local Guides' },
-                            { icon: '📞', text: '24/7 Support: +91 7639 661 626' },
+                            { icon: '📞', text: '24/7 Support: +91 63858 55695' },
                         ].map(({ icon, text }) => (
                             <div key={text} className="flex items-center gap-2">
                                 <span>{icon}</span>
@@ -397,11 +397,11 @@ export default function HomePage() {
                                     Plan with AI
                                 </Link>
                                 <a
-                                    href="tel:+917639661626"
+                                    href="tel:+916385855695"
                                     className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-white/20 text-white rounded-full font-semibold text-lg hover:border-orange-500/50 hover:bg-orange-500/10 transition-all"
                                 >
                                     <Phone className="w-5 h-5" />
-                                    Call Us Now: +91 7639 661 626
+                                    Call Us Now: +91 63858 55695
                                 </a>
                             </div>
                         </div>

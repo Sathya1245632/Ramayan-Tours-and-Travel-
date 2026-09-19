@@ -843,13 +843,71 @@ export const blogPosts = [
     {
         id: 14,
         title: 'Navagraha Temples Circuit: Complete Guide to the 9 Planetary Shrines',
-        excerpt: 'Planning the famous Navagraha temple tour around Kumbakonam and Thanjavur? Discover the ideal order of worship, specific pariharams, and best taxi travel routes...',
+        excerpt: 'Planning to visit the famous Navagraha Temples in Kumbakonam? A little planning can make your temple trip much easier and more peaceful. From deciding which temple to visit first to arranging a comfortable taxi, there are a few things worth knowing before you start.',
         image: '/images/kumbakonam.png',
         category: 'Temple Guide',
         author: 'Pandit Ramakrishna',
         date: 'March 25, 2025',
         readTime: '9 min read',
         slug: 'navagraha-temples-kumbakonam-circuit-guide',
+        content: [
+            {
+                type: 'paragraph',
+                text: 'Planning to visit the famous Navagraha Temples in Kumbakonam? A little planning can make your temple trip much easier and more peaceful. From deciding which temple to visit first to arranging a comfortable taxi, there are a few things worth knowing before you start.'
+            },
+            {
+                type: 'paragraph',
+                text: 'The Kumbakonam Navagraha Temple Tour is a popular pilgrimage route for devotees who want to visit all nine temples and perform their respective Navagraha Pariharams. Since the temples are spread across different locations, having a proper Navagraha Temple Tour itinerary can help you cover them without spending too much time travelling between places.'
+            },
+            {
+                type: 'heading',
+                title: 'Key Highlights & Spiritual Significance',
+                paragraphs: [
+                    'Each of the nine Navagraha Temples has its own history, traditions, and significance. Devotees visit these temples to offer prayers and perform specific pariharams based on their beliefs.',
+                    'Following a suitable order of worship is also an important part of the journey for many devotees. You can take your time at each temple, complete your darshan, and continue to the next temple without rushing.',
+                    "If you're travelling with family, an early start is usually a good idea. The weather is more comfortable in the morning, and you can get through several temples before the day gets too hot."
+                ]
+            },
+            {
+                type: 'templeGrid',
+                title: 'The 9 Sacred Navagraha Temples Around Kumbakonam',
+                temples: [
+                    { name: 'Suriyanar Kovil', planet: 'Sun (Surya)', location: 'Near Aduthurai (15 km)', significance: 'Dedicated solely to the Sun God with individual shrines for all 8 other grahas.' },
+                    { name: 'Thingalur Kailasanathar', planet: 'Moon (Chandra)', location: 'Near Tiruvaiyaru (35 km)', significance: 'Brings mental peace, relieves stress, and removes obstacles in studies and marriage.' },
+                    { name: 'Vaitheeswaran Koil', planet: 'Mars (Angaraka / Sevvai)', location: 'Near Sirkazhi (50 km)', significance: 'Famous healing temple that cures health ailments and resolves Sevvai Dosha.' },
+                    { name: 'Thiruvenkadu Swetharanyeswarar', planet: 'Mercury (Budhan)', location: 'Near Sirkazhi (60 km)', significance: 'Bestows sharp intellect, wisdom, communication skills, and educational success.' },
+                    { name: 'Alangudi Apatsahayeswarar', planet: 'Jupiter (Guru)', location: 'Near Valangaiman (17 km)', significance: 'Brings high wisdom, financial prosperity, career promotions, and divine blessings.' },
+                    { name: 'Kanjanur Agneeswarar', planet: 'Venus (Sukran)', location: 'Near Suryanar Kovil (18 km)', significance: 'Bestows material wealth, artistic talents, beauty, and harmonious married life.' },
+                    { name: 'Thirunallar Dharbaranyeswarar', planet: 'Saturn (Saneeswarar)', location: 'Karaikal (55 km)', significance: 'World-renowned for dissolving severe Sani doshas and granting career stability.' },
+                    { name: 'Thirunageswaram Naganathar', planet: 'Rahu', location: 'Near Kumbakonam (6 km)', significance: 'Famous Rahu sthalam where milk turns cyan-blue during sacred abhishekam.' },
+                    { name: 'Keezhperumpallam Naganathar', planet: 'Ketu', location: 'Near Poompuhar (60 km)', significance: 'Removes serpent doshas, fosters spiritual awakening, detachment, and moksha.' }
+                ]
+            },
+            {
+                type: 'heading',
+                title: 'Best Time to Visit',
+                paragraphs: [
+                    'Starting your Navagraha Temple Tour early in the morning can make the trip much more comfortable. Early morning darshan also gives you some quiet time at the temples before the crowds become heavier.',
+                    'The winter months from October to March offer pleasant weather for full-day travel across the Cauvery delta temple circuit.'
+                ]
+            },
+            {
+                type: 'heading',
+                title: 'Comfortable Taxi Travel',
+                paragraphs: [
+                    'Since the temples are located at different places around Kumbakonam, travelling by a private Kumbakonam temple taxi can be convenient. A local driver who knows the Navagraha temple routes can help you move from one temple to another without worrying about finding the way.',
+                    'With Ramayan Tours and Travels, you get clean air-conditioned vehicles, transparent pricing, and punctual doorstep pickup directly from Kumbakonam, Thanjavur, Trichy, or Madurai.'
+                ]
+            },
+            {
+                type: 'heading',
+                title: 'Plan Your Temple Tour Better',
+                paragraphs: [
+                    "Whether you're planning a one-day trip or taking a couple of days to explore the temples, a simple Navagraha Temple Tour itinerary can save you time and make the overall journey less tiring.",
+                    'With the right route, comfortable transport, and enough time for darshan, your Kumbakonam and Thanjavur temple tour can be a peaceful and memorable spiritual experience.'
+                ]
+            }
+        ],
     },
     {
         id: 5,

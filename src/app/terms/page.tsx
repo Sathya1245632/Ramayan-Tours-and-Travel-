@@ -65,7 +65,7 @@ export default function TermsPage() {
 
                     <div className="pt-8 border-t border-white/10 mt-12 text-center">
                         <p className="text-sm text-gray-500">
-                            For direct support regarding your booking, call us at <a href="tel:+917639661626" className="text-orange-400 font-bold hover:underline">+91 7639 661 626</a>.
+                            For direct support regarding your booking, call us at <a href="tel:+916385855695" className="text-orange-400 font-bold hover:underline">+91 63858 55695</a>.
                         </p>
                     </div>
                 </div>

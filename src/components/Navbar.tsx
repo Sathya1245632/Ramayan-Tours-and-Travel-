@@ -79,11 +79,11 @@ export default function Navbar() {
                     {/* CTA Buttons */}
                     <div className="hidden lg:flex items-center gap-3">
                         <a
-                            href="tel:+917639661626"
+                            href="tel:+916385855695"
                             className="flex items-center gap-2 text-sm text-orange-400 hover:text-orange-300 transition-colors whitespace-nowrap shrink-0"
                         >
                             <Phone className="w-4 h-4" />
-                            <span>+91 7639 661 626</span>
+                            <span>+91 63858 55695</span>
                         </a>
                     </div>
 

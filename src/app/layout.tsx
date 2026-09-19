@@ -6,13 +6,46 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
-    title: 'Ramayan Tours and Travels – Best Travels in Rameshwaram | AI Pilgrimage',
-    description: 'Experience the best pilgrimage tours in Rameshwaram. AI-powered planning for Ramanathaswamy Temple, Tirupati & more. Trusted #1 travel agency in Rameshwaram.',
-    keywords: 'best travels in rameshwaram, rameshwaram temple tour packages, rameshwaram taxi service, local tours rameshwaram, pilgrimage tour india, rameshwaram travel agency',
+    metadataBase: new URL('https://ramayantoursandtravels.com'),
+    title: {
+        default: 'Ramayan Tours & Travels | Best Travels in Rameshwaram',
+        template: '%s | Ramayan Tours & Travels',
+    },
+    description: 'Book Rameshwaram temple tours, Dhanushkodi cabs, and South India pilgrimage packages with Ramayan Tours & Travels. 24/7 support & verified cabs.',
+    keywords: [
+        'best travels in rameshwaram',
+        'rameshwaram temple tour packages',
+        'rameshwaram taxi service',
+        'dhanushkodi cab booking',
+        'south india pilgrimage tours',
+        'rameshwaram car rental',
+    ],
+    alternates: {
+        canonical: '/',
+    },
     openGraph: {
-        title: 'Ramayan Tours and Travels – #1 Travel Agency in Rameshwaram',
-        description: 'Book your sacred journey to Rameshwaram with the experts. AI-powered customized tours.',
+        title: 'Ramayan Tours & Travels | Best Travels in Rameshwaram',
+        description: 'Explore sacred Rameshwaram temple packages and custom South India tours with 24/7 dedicated support.',
+        url: 'https://ramayantoursandtravels.com',
+        siteName: 'Ramayan Tours and Travels',
+        locale: 'en_IN',
         type: 'website',
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Ramayan Tours & Travels | Rameshwaram Pilgrimage Tours',
+        description: 'Authentic Rameshwaram temple packages, Dhanushkodi tours, and taxi services with verified local guides.',
+    },
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+        },
     },
 };
 
@@ -38,7 +71,7 @@ export default function RootLayout({
                         "name": "Ramayan Tours and Travels",
                         "description": "Top-rated travel agency in Rameshwaram specializing in AI-powered pilgrimage tours and local transport.",
                         "url": "https://ramayantoursandtravels.com",
-                        "telephone": "+91 7639 661 626",
+                        "telephone": "+91 63858 55695",
                         "priceRange": "$$",
                         "areaServed": "Rameshwaram, Tamil Nadu, India",
                         "address": {

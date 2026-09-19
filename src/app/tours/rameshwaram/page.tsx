@@ -87,7 +87,7 @@ export default function RameshwaramTours() {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-xs sm:max-w-none mx-auto">
                         <Link 
-                            href="https://wa.me/917639661626?text=I'm%20interested%20in%20a%20Rameshwaram%20tour%20package"
+                            href="https://wa.me/916385855695?text=I'm%20interested%20in%20a%20Rameshwaram%20tour%20package"
                             className="px-6 sm:px-8 py-3.5 sm:py-4 bg-orange-600 hover:bg-orange-500 text-white rounded-xl font-bold transition-all flex items-center justify-center gap-2 shadow-lg shadow-orange-900/20 text-sm sm:text-base"
                         >
                             <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -162,7 +162,7 @@ export default function RameshwaramTours() {
                                         <div className="text-2xl font-bold text-white">₹{pkg.price}</div>
                                     </div>
                                     <Link 
-                                        href={`https://wa.me/917639661626?text=I'd%20like%20to%20book%20the%20${pkg.title}%20package`}
+                                        href={`https://wa.me/916385855695?text=I'd%20like%20to%20book%20the%20${pkg.title}%20package`}
                                         className="bg-orange-600/10 hover:bg-orange-600 text-orange-500 hover:text-white px-5 py-2.5 rounded-lg text-sm font-bold transition-all border border-orange-500/20"
                                     >
                                         Book Now
@@ -266,7 +266,7 @@ export default function RameshwaramTours() {
                                 </div>
                                 <div className="pt-8 flex flex-col sm:flex-row gap-4">
                                     <Link 
-                                        href="https://wa.me/917639661626?text=I'd%20like%20to%20book%20a%20Dhanushkodi%20exclusive%20tour"
+                                        href="https://wa.me/916385855695?text=I'd%20like%20to%20book%20a%20Dhanushkodi%20exclusive%20tour"
                                         className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-orange-600 rounded-xl font-bold text-white hover:bg-orange-500 transition-all"
                                     >
                                         Book Dhanushkodi Trip
@@ -283,26 +283,144 @@ export default function RameshwaramTours() {
             </section>
 
             {/* Local SEO / FAQ Section */}
-            <section className="py-20 border-t border-white/5">
-                <div className="container mx-auto px-4 max-w-3xl">
-                    <h2 className="text-3xl font-bold mb-10 text-center font-poppins text-orange-400 tracking-tight">Everything You Need to Know</h2>
-                    <div className="space-y-6">
+            <section className="py-24 border-t border-white/5 bg-gradient-to-b from-gray-950 via-gray-900/40 to-gray-950">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <div className="text-center mb-12">
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-bold uppercase tracking-widest mb-3">
+                            <Compass className="w-3.5 h-3.5 text-orange-400" />
+                            Frequently Asked Questions
+                        </div>
+                        <h2 className="text-3xl md:text-4xl font-extrabold font-poppins text-white tracking-tight mb-4">
+                            Everything You Need to Know
+                        </h2>
+                        <p className="text-gray-400 text-sm md:text-base max-w-xl mx-auto">
+                            Clear answers regarding Rameshwaram tour packages, Dhanushkodi trips, outstation taxi booking, and custom family itineraries.
+                        </p>
+                    </div>
+
+                    <div className="space-y-4">
                         {[
-                            { q: "What is the best time to visit Rameshwaram?", a: "Rameshwaram is best visited from October to April when the weather is pleasant. Early mornings (4 AM to 10 AM) are ideal for temple rituals and theertham baths." },
-                            { q: "Can we visit Dhanushkodi with our own car?", a: "While personal cars are allowed on the new road, local knowledge of the area and sand conditions is vital for safety. Our professional drivers are experts in Dhanushkodi terrain." },
-                            { q: "Do you offer pickup from Rameshwaram Railway Station?", a: "Yes! We provide 24/7 pickup and drop services from Rameshwaram Railway Station and nearby areas like Ramanathapuram and Madurai." },
-                            { q: "How many days are needed for Rameshwaram?", a: "A 2-day trip is ideal. Day 1 for Temple rituals and local sightseeing. Day 2 for Dhanushkodi and Pamban Bridge exploration." }
+                            {
+                                num: "01",
+                                q: "What are the best Rameshwaram tour packages offered by Ramayan Tours and Travels?",
+                                a: "Ramayan Tours and Travels offers Rameshwaram tour packages, sightseeing packages, pilgrimage tours, family tour packages, and customized travel packages designed around your travel requirements."
+                            },
+                            {
+                                num: "02",
+                                q: "How can I book a Rameshwaram sightseeing and Dhanushkodi tour package?",
+                                a: "You can contact Ramayan Tours and Travels to book a Rameshwaram sightseeing tour and Dhanushkodi tour package. The itinerary can include popular attractions such as Ramanathaswamy Temple, Pamban Bridge, Dhanushkodi, and Agni Theertham."
+                            },
+                            {
+                                num: "03",
+                                q: "Does Ramayan Tours and Travels provide Rameshwaram taxi, cab, and car rental services?",
+                                a: "Yes. We provide Rameshwaram taxi service, cab booking, car rental, local sightseeing cabs, and outstation travel services for individuals, families, and groups."
+                            },
+                            {
+                                num: "04",
+                                q: "Can I book Rameshwaram tour packages from Madurai, Coimbatore, or Chennai?",
+                                a: "Yes. Travellers can enquire about Rameshwaram tour packages from Madurai, Coimbatore, and Chennai, including transportation, sightseeing, and customized travel options."
+                            },
+                            {
+                                num: "05",
+                                q: "Does Ramayan Tours and Travels offer customized family, pilgrimage, and group tour packages?",
+                                a: "Yes. Ramayan Tours and Travels offers customized family tour packages, pilgrimage tour packages, group travel packages, holiday packages, and multi-day tours based on your preferred destinations, duration, and travel requirements."
+                            }
                         ].map((faq, i) => (
-                            <div key={i} className="p-6 bg-gray-900/50 rounded-2xl border border-white/5">
-                                <h4 className="text-lg font-bold mb-2 flex items-center gap-2">
-                                    <ArrowRight className="w-4 h-4 text-orange-500" />
-                                    {faq.q}
-                                </h4>
-                                <p className="text-gray-400 text-sm leading-relaxed ml-6">{faq.a}</p>
+                            <div 
+                                key={i} 
+                                className="group p-6 md:p-7 bg-gray-900/70 hover:bg-gray-900 rounded-2xl border border-white/10 hover:border-orange-500/40 transition-all duration-300 shadow-lg hover:shadow-orange-500/5 flex flex-col md:flex-row gap-4 md:gap-6 items-start"
+                            >
+                                <div className="shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500/20 to-yellow-500/20 border border-orange-500/30 flex items-center justify-center font-bold text-sm text-orange-400 font-poppins group-hover:scale-105 group-hover:bg-orange-500 group-hover:text-white transition-all">
+                                    {faq.num}
+                                </div>
+                                <div className="space-y-2.5 flex-1">
+                                    <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-orange-300 transition-colors leading-snug">
+                                        {faq.q}
+                                    </h3>
+                                    <p className="text-gray-300/90 text-sm sm:text-base leading-relaxed">
+                                        {faq.a}
+                                    </p>
+                                </div>
                             </div>
                         ))}
                     </div>
+
+                    {/* Quick Inquiry Bar */}
+                    <div className="mt-10 p-6 rounded-2xl bg-orange-500/10 border border-orange-500/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div>
+                            <h4 className="font-bold text-white text-base">Have a customized itinerary or custom timing in mind?</h4>
+                            <p className="text-xs sm:text-sm text-gray-400">Our local Rameshwaram travel coordinators are ready to assist you 24/7.</p>
+                        </div>
+                        <div className="flex gap-3 shrink-0">
+                            <Link 
+                                href="https://wa.me/916385855695?text=Hi%20Ramayan%20Tours,%20I%20have%20a%20question%20about%20Rameshwaram%20packages" 
+                                target="_blank"
+                                className="px-4 py-2.5 bg-green-500/20 hover:bg-green-500/30 text-green-400 border border-green-500/30 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5"
+                            >
+                                Chat on WhatsApp
+                            </Link>
+                            <Link 
+                                href="tel:+916385855695"
+                                className="px-4 py-2.5 bg-orange-500 hover:bg-orange-600 text-white rounded-xl text-xs sm:text-sm font-semibold transition-all shadow-md shadow-orange-500/20 flex items-center gap-1.5"
+                            >
+                                <Phone className="w-3.5 h-3.5" /> Call Expert
+                            </Link>
+                        </div>
+                    </div>
                 </div>
+
+                {/* FAQ Structured Data for Google Search Rich Snippets */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "FAQPage",
+                            "mainEntity": [
+                                {
+                                    "@type": "Question",
+                                    "name": "What are the best Rameshwaram tour packages offered by Ramayan Tours and Travels?",
+                                    "acceptedAnswer": {
+                                        "@type": "Answer",
+                                        "text": "Ramayan Tours and Travels offers Rameshwaram tour packages, sightseeing packages, pilgrimage tours, family tour packages, and customized travel packages designed around your travel requirements."
+                                    }
+                                },
+                                {
+                                    "@type": "Question",
+                                    "name": "How can I book a Rameshwaram sightseeing and Dhanushkodi tour package?",
+                                    "acceptedAnswer": {
+                                        "@type": "Answer",
+                                        "text": "You can contact Ramayan Tours and Travels to book a Rameshwaram sightseeing tour and Dhanushkodi tour package. The itinerary can include popular attractions such as Ramanathaswamy Temple, Pamban Bridge, Dhanushkodi, and Agni Theertham."
+                                    }
+                                },
+                                {
+                                    "@type": "Question",
+                                    "name": "Does Ramayan Tours and Travels provide Rameshwaram taxi, cab, and car rental services?",
+                                    "acceptedAnswer": {
+                                        "@type": "Answer",
+                                        "text": "Yes. We provide Rameshwaram taxi service, cab booking, car rental, local sightseeing cabs, and outstation travel services for individuals, families, and groups."
+                                    }
+                                },
+                                {
+                                    "@type": "Question",
+                                    "name": "Can I book Rameshwaram tour packages from Madurai, Coimbatore, or Chennai?",
+                                    "acceptedAnswer": {
+                                        "@type": "Answer",
+                                        "text": "Yes. Travellers can enquire about Rameshwaram tour packages from Madurai, Coimbatore, and Chennai, including transportation, sightseeing, and customized travel options."
+                                    }
+                                },
+                                {
+                                    "@type": "Question",
+                                    "name": "Does Ramayan Tours and Travels offer customized family, pilgrimage, and group tour packages?",
+                                    "acceptedAnswer": {
+                                        "@type": "Answer",
+                                        "text": "Yes. Ramayan Tours and Travels offers customized family tour packages, pilgrimage tour packages, group travel packages, holiday packages, and multi-day tours based on your preferred destinations, duration, and travel requirements."
+                                    }
+                                }
+                            ]
+                        })
+                    }}
+                />
             </section>
 
             {/* Final CTA */}
@@ -314,13 +432,13 @@ export default function RameshwaramTours() {
                     </p>
                     <div className="flex flex-wrap justify-center gap-4">
                         <Link 
-                            href="tel:+917639661626"
+                            href="tel:+916385855695"
                             className="bg-white text-orange-600 px-10 py-4 rounded-2xl font-black text-lg hover:scale-105 transition-all shadow-xl shadow-white/10"
                         >
                             Call Us Now
                         </Link>
                         <Link 
-                            href="https://wa.me/917639661626?text=I'm%20ready%20to%20book%20a%20tour"
+                            href="https://wa.me/916385855695?text=I'm%20ready%20to%20book%20a%20tour"
                             className="bg-gray-950 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:bg-gray-900 transition-all border border-orange-400/30"
                         >
                             WhatsApp Us

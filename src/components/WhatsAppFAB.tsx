@@ -2,7 +2,7 @@
 
 export default function WhatsAppFAB() {
     const message = encodeURIComponent("Hello! I would like details about the Rameshwaram tour package. Please share pricing and availability.");
-    const whatsappUrl = `https://wa.me/917639661626?text=${message}`;
+    const whatsappUrl = `https://wa.me/916385855695?text=${message}`;
 
     return (
         <a

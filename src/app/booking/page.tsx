@@ -80,7 +80,7 @@ function BookingContent() {
             `*Total Estimated Amount:* ₹${totalAmount.toLocaleString()}%0A%0A` +
             `_Sent via Ramayan Tours and Travels Website_`;
 
-        window.open(`https://wa.me/917639661626?text=${message}`, '_blank');
+        window.open(`https://wa.me/916385855695?text=${message}`, '_blank');
 
         createBooking({
             pkgId: (pkg as any).id,
@@ -90,7 +90,7 @@ function BookingContent() {
         });
 
         setCurrentStep(4);
-        toast.success('🎉 Booking details sent to WhatsApp (+91 7639 661 626)!');
+        toast.success('🎉 Booking details sent to WhatsApp (+91 63858 55695)!');
     };
 
     const handlePayment = async (e: React.FormEvent) => {
@@ -118,7 +118,7 @@ function BookingContent() {
                 `*Amount:* ₹${totalAmount.toLocaleString()}%0A` +
                 `*Payment Method:* ${paymentMethod.toUpperCase()}`;
 
-            window.open(`https://wa.me/917639661626?text=${message}`, '_blank');
+            window.open(`https://wa.me/916385855695?text=${message}`, '_blank');
 
             setCurrentStep(4);
             toast.success('🎉 Booking Confirmed!');
@@ -260,7 +260,7 @@ function BookingContent() {
                                                 required
                                                 value={formData.phone}
                                                 onChange={(e) => setFormData((p) => ({ ...p, phone: e.target.value }))}
-                                                placeholder="+91 7639 661 626"
+                                                placeholder="+91 63858 55695"
                                                 className="input-sacred"
                                             />
                                         </div>
@@ -333,7 +333,7 @@ function BookingContent() {
                                         onClick={handleWhatsAppBooking}
                                         className="w-full py-3.5 bg-green-500 hover:bg-green-600 text-white font-bold text-base rounded-xl transition-all shadow-lg shadow-green-500/30 flex items-center justify-center gap-2"
                                     >
-                                        <span>📲 Send Booking to WhatsApp (+91 7639 661 626)</span>
+                                        <span>📲 Send Booking to WhatsApp (+91 63858 55695)</span>
                                     </button>
                                 </div>
 
@@ -370,7 +370,7 @@ function BookingContent() {
                                             <label className="block text-gray-400 text-sm mb-2">UPI ID</label>
                                             <input
                                                 type="text"
-                                                placeholder="yourname@upi (e.g. 7639661626@okaxis)"
+                                                placeholder="yourname@upi (e.g. 6385855695@okaxis)"
                                                 className="input-sacred"
                                                 value={paymentDetails.upiId}
                                                 onChange={(e) => setPaymentDetails((p) => ({ ...p, upiId: e.target.value }))}
@@ -479,7 +479,7 @@ function BookingContent() {
 
                                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                                     <a
-                                        href={`https://wa.me/917639661626?text=Hi%20Ramayan%20Tours,%20I%20have%20booked%20${encodeURIComponent(pkg.name)}%20(Ref:%20%23${bookingRefId})`}
+                                        href={`https://wa.me/916385855695?text=Hi%20Ramayan%20Tours,%20I%20have%20booked%20${encodeURIComponent(pkg.name)}%20(Ref:%20%23${bookingRefId})`}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-green-500/30 transition-all flex items-center gap-2 justify-center"
@@ -487,11 +487,11 @@ function BookingContent() {
                                         <span>💬 Chat on WhatsApp</span>
                                     </a>
                                     <a
-                                        href="tel:+917639661626"
+                                        href="tel:+916385855695"
                                         className="px-6 py-3 border border-white/20 text-white rounded-full font-semibold hover:border-orange-500/50 hover:bg-orange-500/10 transition-all flex items-center gap-2 justify-center"
                                     >
                                         <Phone className="w-4 h-4" />
-                                        Call: +91 7639 661 626
+                                        Call: +91 63858 55695
                                     </a>
                                     <Link
                                         href="/"

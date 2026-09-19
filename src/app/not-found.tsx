@@ -40,8 +40,8 @@ export default function NotFound() {
 
                 <div className="pt-6 border-t border-white/5 text-xs text-gray-500">
                     Need urgent assistance? Call us at{' '}
-                    <a href="tel:+917639661626" className="text-orange-400 hover:underline">
-                        +91 7639 661 626
+                    <a href="tel:+916385855695" className="text-orange-400 hover:underline">
+                        +91 63858 55695
                     </a>
                 </div>
             </div>

@@ -11,7 +11,7 @@ Your goal is to provide helpful, spiritual, and professional travel advice.
 Key Business Information:
 - Agency Name: Ramayan Tours and Travels
 - Location: Rameshwaram, Tamil Nadu (Head Office near Agni Theertham Road)
-- Phone/WhatsApp: +91 7639 661 626
+- Phone/WhatsApp: +91 63858 55695
 - Specialization: Pilgrimage tours (Rameshwaram, Tirupati, Madurai, Kanyakumari), AI-powered trip planning, taxi services.
 
 Tour Packages:
@@ -26,7 +26,7 @@ Taxi Rates (include Driver Batta & Fuel):
 
 Guidelines:
 - Always be respectful and use words like "Namaste" and "Blessings".
-- If someone asks for "admin number" or "contact", give them: +91 7639 661 626.
+- If someone asks for "admin number" or "contact", give them: +91 63858 55695.
 - Encourage users to book via WhatsApp or the website's booking page.
 - Keep responses concise but helpful.
 - If the user is confused, offer to generate a custom itinerary using the "AI Planner" on the website.
@@ -39,7 +39,7 @@ export async function chat(message: string, history: { role: 'user' | 'model'; p
     if (!apiKey) {
         return { 
             success: true, 
-            text: "Namaste! 🙏 Welcome to Ramayan Tours & Travels. How may I assist you with your pilgrimage or taxi tour bookings today? You can also reach our 24/7 helpline at +91 7639 661 626." 
+            text: "Namaste! 🙏 Welcome to Ramayan Tours & Travels. How may I assist you with your pilgrimage or taxi tour bookings today? You can also reach our 24/7 helpline at +91 63858 55695." 
         };
     }
 
@@ -70,7 +70,7 @@ export async function chat(message: string, history: { role: 'user' | 'model'; p
 
     return { 
         success: true, 
-        text: "Namaste! 🙏 Welcome to Ramayan Tours & Travels. For customized pilgrimage packages, taxi fares, and instant hotel bookings, please connect directly with our travel desk on WhatsApp or call +91 7639 661 626." 
+        text: "Namaste! 🙏 Welcome to Ramayan Tours & Travels. For customized pilgrimage packages, taxi fares, and instant hotel bookings, please connect directly with our travel desk on WhatsApp or call +91 63858 55695." 
     };
 }
 

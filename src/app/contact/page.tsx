@@ -21,7 +21,7 @@ export default function ContactPage() {
                 `*Subject:* ${formData.subject || 'General Inquiry'}%0A%0A` +
                 `*Message:* ${formData.message}`;
 
-            window.open(`https://wa.me/917639661626?text=${message}`, '_blank');
+            window.open(`https://wa.me/916385855695?text=${message}`, '_blank');
 
             await sendContactMessage(formData);
             toast.success('🙏 Inquiry sent to WhatsApp & support team!');
@@ -56,7 +56,7 @@ export default function ContactPage() {
                             <h2 className="text-white font-bold text-lg mb-6">Reach Us</h2>
                             <div className="space-y-5">
                                 {[
-                                    { icon: Phone, title: 'Phone', lines: ['+91 7639 661 626'], color: 'text-green-400' },
+                                    { icon: Phone, title: 'Phone', lines: ['+91 63858 55695'], color: 'text-green-400' },
                                     { icon: Mail, title: 'Email', lines: ['Ramayantoursandtravels@gmail.com'], color: 'text-blue-400' },
                                     { icon: MapPin, title: 'Address', lines: ['Middle Street, Near Main Temple', 'West Gate, Rameshwaram – 623526'], color: 'text-orange-400' },
                                     { icon: Clock, title: 'Working Hours', lines: ['Mon – Sun: 24/7 Support', 'Open All Days'], color: 'text-yellow-400' },
@@ -78,7 +78,7 @@ export default function ContactPage() {
 
                         {/* WhatsApp CTA */}
                         <a
-                            href="https://wa.me/917639661626?text=Hello%2C%20I%20would%20like%20details%20about%20the%20Rameshwaram%20tour%20package."
+                            href="https://wa.me/916385855695?text=Hello%2C%20I%20would%20like%20details%20about%20the%20Rameshwaram%20tour%20package."
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-4 bg-green-500/10 border border-green-500/30 rounded-2xl p-6 hover:bg-green-500/20 transition-all group"

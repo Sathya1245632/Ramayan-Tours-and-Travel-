@@ -104,7 +104,7 @@ export default function CertificateModal({ isOpen, onClose }: CertificateModalPr
                         </div>
                         <div className="flex justify-between">
                             <span>Official Contact:</span>
-                            <span className="text-orange-400 font-medium">+91 7639 661 626</span>
+                            <span className="text-orange-400 font-medium">+91 63858 55695</span>
                         </div>
                     </div>
                 </div>

@@ -38,14 +38,16 @@ export default function Footer() {
                         </p>
                         <div className="flex gap-3">
                             {[
-                                { icon: Instagram, href: '#', color: 'hover:text-pink-400', label: 'Instagram' },
-                                { icon: Facebook, href: '#', color: 'hover:text-blue-400', label: 'Facebook' },
-                                { icon: Youtube, href: '#', color: 'hover:text-red-400', label: 'Youtube' },
-                                { icon: Twitter, href: '#', color: 'hover:text-sky-400', label: 'Twitter' },
+                                { icon: Instagram, href: '#', color: 'hover:text-pink-400', label: 'Follow Ramayan Tours on Instagram' },
+                                { icon: Facebook, href: '#', color: 'hover:text-blue-400', label: 'Follow Ramayan Tours on Facebook' },
+                                { icon: Youtube, href: '#', color: 'hover:text-red-400', label: 'Subscribe on YouTube' },
+                                { icon: Twitter, href: '#', color: 'hover:text-sky-400', label: 'Follow on Twitter' },
                             ].map(({ icon: Icon, href, color, label }) => (
                                 <a
                                     key={label}
                                     href={href}
+                                    aria-label={label}
+                                    title={label}
                                     className={`w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-gray-400 ${color} border border-white/10 hover:border-orange-500/30 transition-all hover:bg-white/10`}
                                 >
                                     <Icon className="w-4 h-4" />
@@ -118,7 +120,7 @@ export default function Footer() {
                             <li className="flex items-start gap-3">
                                 <Phone className="w-4 h-4 text-orange-400 mt-0.5 shrink-0" />
                                 <div>
-                                    <div className="text-white text-sm">+91 7639 661 626</div>
+                                    <div className="text-white text-sm">+91 63858 55695</div>
                                     <div className="text-gray-400 text-xs">Mon–Sun, 24/7 Support</div>
                                 </div>
                             </li>

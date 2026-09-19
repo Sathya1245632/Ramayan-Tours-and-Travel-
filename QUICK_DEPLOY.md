@@ -2,7 +2,7 @@
 
 Your website is now **100% frontend and serverless** — **No Database or Backend Setup Required!**
 
-All bookings, inquiries, and customer communication connect directly to your **WhatsApp (+91 7639 661 626)** with automated reference numbers.
+All bookings, inquiries, and customer communication connect directly to your **WhatsApp (+91 63858 55695)** with automated reference numbers.
 
 ---
 
