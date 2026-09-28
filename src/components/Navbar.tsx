@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Phone, ChevronDown } from 'lucide-react';
+import { Menu, X, Phone, Sparkles, Send, ArrowRight } from 'lucide-react';
 
 const navLinks = [
     { href: '/', label: 'Home' },
@@ -29,11 +29,37 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Automatically close mobile menu when pathname changes
+    useEffect(() => {
+        setIsOpen(false);
+    }, [pathname]);
+
+    // Prevent background scrolling when mobile menu is open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen]);
+
+    // Close on Escape key press
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') setIsOpen(false);
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
+
     const isHome = pathname === '/';
 
     return (
         <nav
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+            className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
                 (!isHome || scrolled || isOpen)
                 ? 'bg-gray-950/95 backdrop-blur-md shadow-xl shadow-black/50 border-b border-orange-500/20'
                 : 'bg-transparent'
@@ -42,7 +68,11 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-20">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-3 group py-1">
+                    <Link
+                        href="/"
+                        onClick={() => setIsOpen(false)}
+                        className="flex items-center gap-3 group py-1 select-none"
+                    >
                         <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center shadow-lg shadow-orange-500/20 border-2 border-orange-500/40 bg-white p-1 group-hover:border-orange-400 group-hover:scale-105 transition-all duration-300">
                             <Image
                                 src="/images/brand-emblem-square.png"
@@ -63,7 +93,7 @@ export default function Navbar() {
                         </div>
                     </Link>
 
-                    {/* Desktop Nav */}
+                    {/* Desktop Navigation */}
                     <div className="hidden lg:flex items-center gap-1">
                         {navLinks.map((link) => (
                             <Link
@@ -79,7 +109,7 @@ export default function Navbar() {
                         ))}
                     </div>
 
-                    {/* CTA Buttons */}
+                    {/* Desktop Phone CTA */}
                     <div className="hidden lg:flex items-center gap-3">
                         <a
                             href="tel:+916385855695"
@@ -90,35 +120,87 @@ export default function Navbar() {
                         </a>
                     </div>
 
-                    {/* Mobile Menu Button */}
+                    {/* Mobile Hamburger / Close Button */}
                     <button
-                        onClick={() => setIsOpen(!isOpen)}
-                        className="lg:hidden p-2 rounded-lg text-white hover:bg-white/10 transition-colors"
-                        aria-label="Toggle menu"
+                        type="button"
+                        onClick={() => setIsOpen((prev) => !prev)}
+                        className="lg:hidden flex items-center justify-center w-11 h-11 rounded-xl bg-white/10 hover:bg-white/15 active:scale-95 border border-white/15 text-white transition-all shadow-md focus:outline-none focus:ring-2 focus:ring-orange-500/50"
+                        aria-label={isOpen ? 'Close menu' : 'Open menu'}
+                        aria-expanded={isOpen}
                     >
-                        {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                        {isOpen ? (
+                            <X className="w-6 h-6 text-orange-400" />
+                        ) : (
+                            <Menu className="w-6 h-6 text-white" />
+                        )}
                     </button>
                 </div>
             </div>
 
-            {/* Mobile Menu */}
+            {/* Mobile Drawer Overlay */}
             {isOpen && (
-                <div className="lg:hidden fixed inset-x-0 top-20 bottom-0 bg-gray-950/100 z-50 overflow-y-auto">
-                    <div className="px-6 py-8 space-y-4 pb-20">
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.href}
-                                href={link.href}
-                                onClick={() => setIsOpen(false)}
-                                className={`block px-5 py-4 rounded-xl text-base font-semibold transition-all ${pathname === link.href
-                                    ? 'bg-gradient-to-r from-orange-500 to-yellow-500 text-white shadow-lg shadow-orange-500/20'
-                                    : 'text-gray-300 hover:text-white hover:bg-white/5 border border-white/5'
-                                    }`}
+                <div
+                    className="lg:hidden fixed inset-x-0 top-20 h-[calc(100dvh-80px)] bg-gray-950/98 backdrop-blur-3xl z-[100] overflow-y-auto border-t border-orange-500/20 animate-in fade-in slide-in-from-top-4 duration-200"
+                >
+                    <div className="px-5 py-6 space-y-2.5 pb-28 max-w-lg mx-auto">
+                        {/* Quick Top Actions in Drawer */}
+                        <div className="grid grid-cols-2 gap-2 mb-4 pb-4 border-b border-white/10">
+                            <a
+                                href="tel:+916385855695"
+                                className="flex items-center justify-center gap-2 py-3 px-3 bg-white/5 border border-white/10 rounded-xl text-orange-400 text-xs font-bold active:scale-95 transition-all"
                             >
-                                {link.label}
+                                <Phone className="w-3.5 h-3.5" />
+                                <span>Call Helpline</span>
+                            </a>
+                            <a
+                                href="https://wa.me/916385855695?text=Hello%20Ramayan%20Tours!%20I%20would%20like%20to%20inquire%20about%20tours."
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-center gap-2 py-3 px-3 bg-green-500/15 border border-green-500/30 rounded-xl text-green-400 text-xs font-bold active:scale-95 transition-all"
+                            >
+                                <Send className="w-3.5 h-3.5" />
+                                <span>WhatsApp Us</span>
+                            </a>
+                        </div>
+
+                        {/* Navigation Links */}
+                        {navLinks.map((link) => {
+                            const isActive = pathname === link.href;
+                            return (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    onClick={() => setIsOpen(false)}
+                                    className={`flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-semibold transition-all ${
+                                        isActive
+                                            ? 'bg-gradient-to-r from-orange-500 to-yellow-500 text-white shadow-lg shadow-orange-500/25'
+                                            : 'text-gray-300 hover:text-white bg-gray-900/60 active:bg-gray-900 border border-white/5'
+                                    }`}
+                                >
+                                    <span>{link.label}</span>
+                                    <ArrowRight className={`w-4 h-4 ${isActive ? 'text-white' : 'text-gray-500'}`} />
+                                </Link>
+                            );
+                        })}
+
+                        {/* AI Planner Banner */}
+                        <div className="pt-4">
+                            <Link
+                                href="/ai-planner"
+                                onClick={() => setIsOpen(false)}
+                                className="w-full py-4 px-4 bg-gradient-to-r from-orange-500/20 via-yellow-500/10 to-orange-500/20 border border-orange-500/40 rounded-2xl flex items-center justify-between group active:scale-98 transition-all"
+                            >
+                                <div className="flex items-center gap-3">
+                                    <div className="w-9 h-9 rounded-xl bg-orange-500/20 border border-orange-500/40 flex items-center justify-center text-orange-400">
+                                        <Sparkles className="w-4 h-4" />
+                                    </div>
+                                    <div className="text-left">
+                                        <div className="text-white font-bold text-xs">AI Trip Planner</div>
+                                        <div className="text-gray-400 text-[11px]">Generate custom pilgrimage plans</div>
+                                    </div>
+                                </div>
+                                <ArrowRight className="w-4 h-4 text-orange-400 group-hover:translate-x-1 transition-transform" />
                             </Link>
-                        ))}
-                        <div className="pt-6 flex flex-col gap-4">
                         </div>
                     </div>
                 </div>
