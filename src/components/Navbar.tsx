@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Phone, Sparkles, Send, ArrowRight } from 'lucide-react';
+import { Menu, X, Phone, Sparkles, ArrowRight } from 'lucide-react';
 
 const navLinks = [
     { href: '/', label: 'Home' },
@@ -59,10 +59,13 @@ export default function Navbar() {
 
     return (
         <nav
+            style={isOpen ? { backgroundColor: '#030712' } : undefined}
             className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
-                (!isHome || scrolled || isOpen)
-                ? 'bg-gray-950/95 backdrop-blur-md shadow-xl shadow-black/50 border-b border-orange-500/20'
-                : 'bg-transparent'
+                isOpen
+                    ? 'bg-gray-950 border-b border-orange-500/20 shadow-2xl'
+                    : (!isHome || scrolled)
+                    ? 'bg-gray-950/95 backdrop-blur-md shadow-xl shadow-black/50 border-b border-orange-500/20'
+                    : 'bg-transparent'
             }`}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -137,32 +140,13 @@ export default function Navbar() {
                 </div>
             </div>
 
-            {/* Mobile Drawer Overlay */}
+            {/* Fully Opaque Solid Mobile Menu Overlay */}
             {isOpen && (
                 <div
-                    className="lg:hidden fixed inset-x-0 top-20 h-[calc(100dvh-80px)] bg-gray-950/98 backdrop-blur-3xl z-[100] overflow-y-auto border-t border-orange-500/20 animate-in fade-in slide-in-from-top-4 duration-200"
+                    style={{ backgroundColor: '#030712' }}
+                    className="lg:hidden fixed inset-x-0 top-20 h-[calc(100dvh-80px)] bg-gray-950 z-[100] overflow-y-auto border-t border-orange-500/20"
                 >
                     <div className="px-5 py-6 space-y-2.5 pb-28 max-w-lg mx-auto">
-                        {/* Quick Top Actions in Drawer */}
-                        <div className="grid grid-cols-2 gap-2 mb-4 pb-4 border-b border-white/10">
-                            <a
-                                href="tel:+916385855695"
-                                className="flex items-center justify-center gap-2 py-3 px-3 bg-white/5 border border-white/10 rounded-xl text-orange-400 text-xs font-bold active:scale-95 transition-all"
-                            >
-                                <Phone className="w-3.5 h-3.5" />
-                                <span>Call Helpline</span>
-                            </a>
-                            <a
-                                href="https://wa.me/916385855695?text=Hello%20Ramayan%20Tours!%20I%20would%20like%20to%20inquire%20about%20tours."
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center justify-center gap-2 py-3 px-3 bg-green-500/15 border border-green-500/30 rounded-xl text-green-400 text-xs font-bold active:scale-95 transition-all"
-                            >
-                                <Send className="w-3.5 h-3.5" />
-                                <span>WhatsApp Us</span>
-                            </a>
-                        </div>
-
                         {/* Navigation Links */}
                         {navLinks.map((link) => {
                             const isActive = pathname === link.href;
@@ -171,14 +155,14 @@ export default function Navbar() {
                                     key={link.href}
                                     href={link.href}
                                     onClick={() => setIsOpen(false)}
-                                    className={`flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-semibold transition-all ${
+                                    className={`flex items-center justify-between px-4 py-3.5 rounded-xl text-base font-semibold transition-all ${
                                         isActive
                                             ? 'bg-gradient-to-r from-orange-500 to-yellow-500 text-white shadow-lg shadow-orange-500/25'
-                                            : 'text-gray-300 hover:text-white bg-gray-900/60 active:bg-gray-900 border border-white/5'
+                                            : 'text-gray-200 hover:text-white bg-gray-900 active:bg-gray-800 border border-white/10'
                                     }`}
                                 >
                                     <span>{link.label}</span>
-                                    <ArrowRight className={`w-4 h-4 ${isActive ? 'text-white' : 'text-gray-500'}`} />
+                                    <ArrowRight className={`w-4 h-4 ${isActive ? 'text-white' : 'text-gray-400'}`} />
                                 </Link>
                             );
                         })}
@@ -188,15 +172,15 @@ export default function Navbar() {
                             <Link
                                 href="/ai-planner"
                                 onClick={() => setIsOpen(false)}
-                                className="w-full py-4 px-4 bg-gradient-to-r from-orange-500/20 via-yellow-500/10 to-orange-500/20 border border-orange-500/40 rounded-2xl flex items-center justify-between group active:scale-98 transition-all"
+                                className="w-full py-4 px-4 bg-gradient-to-r from-orange-500/20 via-yellow-500/10 to-orange-500/20 border border-orange-500/40 rounded-2xl flex items-center justify-between group active:scale-98 transition-all bg-gray-900"
                             >
                                 <div className="flex items-center gap-3">
                                     <div className="w-9 h-9 rounded-xl bg-orange-500/20 border border-orange-500/40 flex items-center justify-center text-orange-400">
                                         <Sparkles className="w-4 h-4" />
                                     </div>
                                     <div className="text-left">
-                                        <div className="text-white font-bold text-xs">AI Trip Planner</div>
-                                        <div className="text-gray-400 text-[11px]">Generate custom pilgrimage plans</div>
+                                        <div className="text-white font-bold text-sm">AI Trip Planner</div>
+                                        <div className="text-gray-400 text-xs">Generate custom pilgrimage plans</div>
                                     </div>
                                 </div>
                                 <ArrowRight className="w-4 h-4 text-orange-400 group-hover:translate-x-1 transition-transform" />
