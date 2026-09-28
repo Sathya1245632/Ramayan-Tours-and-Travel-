@@ -8,10 +8,11 @@ import { Menu, X, Phone, ChevronDown } from 'lucide-react';
 
 const navLinks = [
     { href: '/', label: 'Home' },
+    { href: '/ramayana-trail', label: 'Ramayana Trail' },
     { href: '/tours/rameshwaram', label: 'Rameshwaram Special' },
     { href: '/destinations', label: 'Destinations' },
     { href: '/packages', label: 'Packages' },
-    { href: '/ai-planner', label: '✨ AI Planner' },
+    { href: '/ai-planner', label: 'AI Planner' },
     { href: '/blog', label: 'Blog' },
     { href: '/reviews', label: 'Reviews' },
     { href: '/contact', label: 'Contact' },
@@ -28,11 +29,13 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const isHome = pathname === '/';
+
     return (
         <nav
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-                (scrolled || isOpen)
-                ? 'bg-gray-950 shadow-lg shadow-saffron-500/10 border-b border-orange-500/10'
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+                (!isHome || scrolled || isOpen)
+                ? 'bg-gray-950/95 backdrop-blur-md shadow-xl shadow-black/50 border-b border-orange-500/20'
                 : 'bg-transparent'
             }`}
         >

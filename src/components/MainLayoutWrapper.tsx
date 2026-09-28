@@ -13,10 +13,8 @@ export default function MainLayoutWrapper({
 }) {
     const pathname = usePathname();
     const isAdminPage = pathname?.startsWith('/admin');
-    const isFrontPage = pathname === '/';
 
-    // During maintenance mode on front page or admin pages, render only the page itself
-    if (isAdminPage || isFrontPage) {
+    if (isAdminPage) {
         return <>{children}</>;
     }
 

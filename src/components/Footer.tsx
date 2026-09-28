@@ -65,6 +65,7 @@ export default function Footer() {
                         <ul className="space-y-3">
                             {[
                                 { href: '/', label: 'Home' },
+                                { href: '/ramayana-trail', label: 'Ramayana Trail' },
                                 { href: '/destinations', label: 'Destinations' },
                                 { href: '/packages', label: 'Tour Packages' },
                                 { href: '/ai-planner', label: 'AI Trip Planner' },

@@ -1,5 +1,5 @@
-import MaintenancePage from '@/components/MaintenancePage';
+import OriginalHomePage from '@/components/OriginalHomePage';
 
 export default function HomePage() {
-    return <MaintenancePage />;
+    return <OriginalHomePage />;
 }

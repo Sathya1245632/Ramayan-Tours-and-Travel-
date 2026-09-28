@@ -5,7 +5,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Search, Star, ArrowRight, MapPin, Clock, Sparkles, Phone, ShieldCheck } from 'lucide-react';
 import { destinations, reviews, stats } from '@/lib/data';
-import GovtTrustSection from '@/components/GovtTrustSection';
 
 export default function OriginalHomePage() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -134,9 +133,6 @@ export default function OriginalHomePage() {
                     </div>
                 </div>
             </section>
-
-            {/* ─── GOVT OF INDIA MSME ACCREDITATION SECTION ──── */}
-            <GovtTrustSection />
 
             {/* ─── DESTINATIONS ─────────────────────────────── */}
             <section className="py-16 md:py-24 px-4">
