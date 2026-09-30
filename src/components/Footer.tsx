@@ -38,17 +38,19 @@ export default function Footer() {
                         </p>
                         <div className="flex gap-3">
                             {[
-                                { icon: Instagram, href: '#', color: 'hover:text-pink-400', label: 'Follow Ramayan Tours on Instagram' },
-                                { icon: Facebook, href: '#', color: 'hover:text-blue-400', label: 'Follow Ramayan Tours on Facebook' },
-                                { icon: Youtube, href: '#', color: 'hover:text-red-400', label: 'Subscribe on YouTube' },
-                                { icon: Twitter, href: '#', color: 'hover:text-sky-400', label: 'Follow on Twitter' },
+                                { icon: Instagram, href: 'https://www.instagram.com/ramayan_tours_and_travels?stkn=ZjRsOGJ1cDFjeG5n', color: 'hover:text-pink-400 hover:border-pink-500/50 hover:bg-pink-500/10', label: 'Follow Ramayan Tours on Instagram' },
+                                { icon: Facebook, href: 'https://www.facebook.com/ramayantoursandtravels', color: 'hover:text-blue-400 hover:border-blue-500/50 hover:bg-blue-500/10', label: 'Follow Ramayan Tours on Facebook' },
+                                { icon: Youtube, href: 'https://www.youtube.com/@ramayantoursandtravels', color: 'hover:text-red-400 hover:border-red-500/50 hover:bg-red-500/10', label: 'Subscribe on YouTube' },
+                                { icon: Twitter, href: 'https://twitter.com/ramayantours', color: 'hover:text-sky-400 hover:border-sky-500/50 hover:bg-sky-500/10', label: 'Follow on Twitter' },
                             ].map(({ icon: Icon, href, color, label }) => (
                                 <a
                                     key={label}
                                     href={href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     aria-label={label}
                                     title={label}
-                                    className={`w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-gray-400 ${color} border border-white/10 hover:border-orange-500/30 transition-all hover:bg-white/10`}
+                                    className={`w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-gray-400 ${color} border border-white/10 transition-all hover:scale-105`}
                                 >
                                     <Icon className="w-4 h-4" />
                                 </a>

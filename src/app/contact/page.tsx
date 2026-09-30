@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Phone, Mail, MapPin, Clock, Send, MessageCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Send, MessageCircle, Instagram } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { sendContactMessage } from '@/app/actions/contact';
 
@@ -51,7 +51,7 @@ export default function ContactPage() {
             <div className="max-w-6xl mx-auto px-4">
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
                     {/* Contact Info */}
-                    <div className="lg:col-span-2 space-y-6">
+                    <div className="lg:col-span-2 space-y-4">
                         <div className="bg-gray-900 rounded-2xl border border-white/5 p-6">
                             <h2 className="text-white font-bold text-lg mb-6">Reach Us</h2>
                             <div className="space-y-5">
@@ -81,14 +81,30 @@ export default function ContactPage() {
                             href="https://wa.me/916385855695?text=Hello%2C%20I%20would%20like%20details%20about%20the%20Rameshwaram%20tour%20package."
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-4 bg-green-500/10 border border-green-500/30 rounded-2xl p-6 hover:bg-green-500/20 transition-all group"
+                            className="flex items-center gap-4 bg-green-500/10 border border-green-500/30 rounded-2xl p-5 hover:bg-green-500/20 transition-all group"
                         >
-                            <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center group-hover:bg-green-500/30 transition-colors">
-                                <MessageCircle className="w-6 h-6 text-green-400" />
+                            <div className="w-11 h-11 rounded-full bg-green-500/20 flex items-center justify-center group-hover:bg-green-500/30 transition-colors">
+                                <MessageCircle className="w-5 h-5 text-green-400" />
                             </div>
                             <div>
-                                <div className="text-white font-bold">Chat on WhatsApp</div>
-                                <div className="text-green-400 text-sm">Instant reply • 24/7 support</div>
+                                <div className="text-white font-bold text-sm">Chat on WhatsApp</div>
+                                <div className="text-green-400 text-xs">Instant reply • +91 63858 55695</div>
+                            </div>
+                        </a>
+
+                        {/* Instagram CTA */}
+                        <a
+                            href="https://www.instagram.com/ramayan_tours_and_travels?stkn=ZjRsOGJ1cDFjeG5n"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-4 bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-orange-500/10 border border-pink-500/30 rounded-2xl p-5 hover:border-pink-500/50 hover:bg-pink-500/15 transition-all group"
+                        >
+                            <div className="w-11 h-11 rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center group-hover:scale-105 transition-transform">
+                                <Instagram className="w-5 h-5 text-pink-400" />
+                            </div>
+                            <div>
+                                <div className="text-white font-bold text-sm">Follow on Instagram</div>
+                                <div className="text-pink-300 text-xs">@ramayan_tours_and_travels</div>
                             </div>
                         </a>
                     </div>

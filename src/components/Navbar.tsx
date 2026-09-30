@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Phone, Sparkles, ArrowRight } from 'lucide-react';
+import { Menu, X, Phone, Sparkles, ArrowRight, Instagram } from 'lucide-react';
 
 const navLinks = [
     { href: '/', label: 'Home' },
@@ -168,7 +168,7 @@ export default function Navbar() {
                         })}
 
                         {/* AI Planner Banner */}
-                        <div className="pt-4">
+                        <div className="pt-4 space-y-3">
                             <Link
                                 href="/ai-planner"
                                 onClick={() => setIsOpen(false)}
@@ -185,6 +185,25 @@ export default function Navbar() {
                                 </div>
                                 <ArrowRight className="w-4 h-4 text-orange-400 group-hover:translate-x-1 transition-transform" />
                             </Link>
+
+                            {/* Instagram Mobile Link */}
+                            <a
+                                href="https://www.instagram.com/ramayan_tours_and_travels?stkn=ZjRsOGJ1cDFjeG5n"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full py-3.5 px-4 bg-gradient-to-r from-purple-500/15 via-pink-500/15 to-orange-500/15 border border-pink-500/30 rounded-2xl flex items-center justify-between group active:scale-98 transition-all"
+                            >
+                                <div className="flex items-center gap-3">
+                                    <div className="w-8 h-8 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center">
+                                        <Instagram className="w-4 h-4" />
+                                    </div>
+                                    <div className="text-left">
+                                        <div className="text-white font-bold text-sm">Follow on Instagram</div>
+                                        <div className="text-pink-300 text-[11px]">@ramayan_tours_and_travels</div>
+                                    </div>
+                                </div>
+                                <ArrowRight className="w-4 h-4 text-pink-400 group-hover:translate-x-1 transition-transform" />
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -20,7 +20,29 @@ import WhatsAppFAB from '@/components/WhatsAppFAB';
 export const metadata: Metadata = {
     title: 'Best Travels in Rameshwaram | Tour Packages & Taxi Services',
     description: 'Book the #1 tour packages in Rameshwaram. Local sightseeing, Dhanushkodi trips, and temple tours starting from ₹1,500. Professional drivers & premium cars.',
-    keywords: 'best travels in rameshwaram, rameshwaram temple tour, rameshwaram taxi service, dhanushkodi tour packages, rameshwaram local sightseeing, taxi rate in rameshwaram',
+    keywords: [
+        'best travels in rameshwaram',
+        'rameshwaram temple tour',
+        'rameshwaram taxi service',
+        'dhanushkodi tour packages',
+        'rameshwaram local sightseeing',
+        'taxi rate in rameshwaram',
+        'rameshwaram cab booking',
+        'rameshwaram sight seeing cab charges',
+        'rameshwaram travel agency',
+        'dhanushkodi cab rate',
+        'rameshwaram outstation taxi',
+        'madurai to rameshwaram tour package',
+    ],
+    alternates: {
+        canonical: 'https://ramayantoursandtravels.com/tours/rameshwaram',
+    },
+    openGraph: {
+        title: 'Best Travels in Rameshwaram | Tour Packages & Taxi Services',
+        description: 'Book the #1 tour packages in Rameshwaram. Local sightseeing, Dhanushkodi trips, and temple tours starting from ₹1,500.',
+        url: 'https://ramayantoursandtravels.com/tours/rameshwaram',
+        type: 'website',
+    },
 };
 
 const packages = [
