@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import OriginalHomePage from '@/components/OriginalHomePage';
 
 export const metadata: Metadata = {
-    title: 'Ramayan Tours & Travels | Best Travels in Rameshwaram | Tour Packages & Cabs',
+    title: 'Ramayan Tours & Travels | Rameshwaram Tour Packages & Cabs',
     description:
-        '#1 rated travel agency in Rameshwaram. Book authentic temple tour packages, Dhanushkodi sightseeing cabs, Ramayana trail yatras, and South India pilgrimage trips with 24/7 support.',
+        'Explore Rameshwaram temple tour packages, Dhanushkodi sightseeing cabs, Ramayana trail visits and South India pilgrimage trips with Ramayan Tours & Travels.',
     keywords: [
         'best travels in rameshwaram',
         'rameshwaram tour packages',
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
         canonical: 'https://ramayantoursandtravels.com',
     },
     openGraph: {
-        title: 'Ramayan Tours & Travels | Best Travels in Rameshwaram',
+        title: 'Ramayan Tours & Travels | Rameshwaram Tour Packages & Cabs',
         description:
-            'Book Rameshwaram temple tours, Dhanushkodi cabs, and South India pilgrimage packages. Verified cabs and 24/7 local guide assistance.',
+            'Explore Rameshwaram temple tours, Dhanushkodi sightseeing and South India pilgrimage packages with Ramayan Tours & Travels.',
         url: 'https://ramayantoursandtravels.com',
         siteName: 'Ramayan Tours and Travels',
         images: [
@@ -44,13 +44,12 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Ramayan Tours & Travels | Best Travels in Rameshwaram',
+        title: 'Ramayan Tours & Travels | Rameshwaram Tour Packages',
         description:
-            'Book Rameshwaram temple tours, Dhanushkodi cabs, and South India pilgrimage packages. Verified cabs and 24/7 local guide assistance.',
+            'Explore Rameshwaram temple tours, Dhanushkodi sightseeing and South India pilgrimage packages.',
     },
 };
 
 export default function HomePage() {
     return <OriginalHomePage />;
 }
-
