@@ -1,12 +1,19 @@
 import { MetadataRoute } from 'next';
 
-export default function robots(): MetadataRoute.Robots {
-    const baseUrl = 'https://ramayantoursandtravels.com';
+const baseUrl = 'https://ramayantoursandtravels.com';
 
+export default function robots(): MetadataRoute.Robots {
     return {
         rules: [
             {
                 userAgent: '*',
+                allow: '/',
+                disallow: ['/admin', '/admin/'],
+            },
+            // Search/discovery crawlers used by AI answer engines.
+            // These rules allow public pages while keeping admin routes excluded.
+            {
+                userAgent: ['OAI-SearchBot', 'PerplexityBot', 'Claude-SearchBot'],
                 allow: '/',
                 disallow: ['/admin', '/admin/'],
             },
