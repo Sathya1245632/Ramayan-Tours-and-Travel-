@@ -11,7 +11,7 @@ export const metadata: Metadata = {
         default: 'Ramayan Tours & Travels | Best Travels in Rameshwaram',
         template: '%s | Ramayan Tours & Travels',
     },
-    description: 'Book Rameshwaram temple tours, Dhanushkodi cabs, and South India pilgrimage packages with Ramayan Tours & Travels. 24/7 support & verified cabs.',
+    description: 'Explore Rameshwaram temple tours, Dhanushkodi sightseeing and South India pilgrimage packages with Ramayan Tours & Travels.',
     keywords: [
         'best travels in rameshwaram',
         'rameshwaram temple tour packages',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     },
     openGraph: {
         title: 'Ramayan Tours & Travels | Best Travels in Rameshwaram',
-        description: 'Explore sacred Rameshwaram temple packages and custom South India tours with 24/7 dedicated support.',
+        description: 'Explore Rameshwaram temple packages, Dhanushkodi sightseeing and custom South India tours with Ramayan Tours & Travels.',
         url: 'https://ramayantoursandtravels.com',
         siteName: 'Ramayan Tours and Travels',
         locale: 'en_IN',
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'Ramayan Tours & Travels | Rameshwaram Pilgrimage Tours',
-        description: 'Authentic Rameshwaram temple packages, Dhanushkodi tours, and taxi services with verified local guides.',
+        description: 'Explore Rameshwaram temple packages, Dhanushkodi tours and local taxi services.',
     },
     robots: {
         index: true,
@@ -75,16 +75,16 @@ export default function RootLayout({
                 <script type="application/ld+json" dangerouslySetInnerHTML={{
                     __html: JSON.stringify({
                         "@context": "https://schema.org",
-                        "@type": "LocalBusiness",
+                        "@type": "TravelAgency",
                         "name": "Ramayan Tours and Travels",
-                        "description": "Top-rated travel agency in Rameshwaram specializing in AI-powered pilgrimage tours and local transport.",
+                        "description": "Travel and tour services in Rameshwaram, Tamil Nadu, including local sightseeing, pilgrimage tours and taxi services.",
                         "url": "https://ramayantoursandtravels.com",
                         "telephone": "+91 63858 55695",
-                        "priceRange": "$$",
+                        "email": "Ramayantoursandtravels@gmail.com",
                         "areaServed": "Rameshwaram, Tamil Nadu, India",
                         "address": {
                             "@type": "PostalAddress",
-                            "streetAddress": "Agni Theertham Road",
+                            "streetAddress": "Middle Street, Near Main Temple, West Gate",
                             "addressLocality": "Rameshwaram",
                             "addressRegion": "Tamil Nadu",
                             "postalCode": "623526",
